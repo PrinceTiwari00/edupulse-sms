@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: AWS Deployment template for EduPulse School Management System
+
+Parameters:
+  DBPassword:
+    Type: String
+    Description: Password for the PostgreSQL database
+    NoEcho: true
+  NextAuthSecret:
+    Type: String
+    Description: Secret for NextAuth.js
+    NoEcho: true
+
+Resources:
+  # --- AppRegistry Association (Provided by User) ---
+  AppRegistryApplicationStackAssociation:
+    Type: AWS::ServiceCatalogAppRegistry::ResourceAssociation
+    Properties:
+      Application: arn:aws:servicecatalog:eu-north-1:971441628788:/applications/0d48esv246sf3ivtnh5y69e312
+      Resource: !Ref AWS::StackId
+      ResourceType: CFN_STACK
+
+  # --- Database (RDS PostgreSQL) ---
+  EduPulseDB:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AllocatedStorage: '20'
+      DBInstanceClass: db.t3.micro
+      Engine: postgres
+      MasterUsername: edupulse_admin
+      MasterUserPassword: !Ref DBPassword
+      PubliclyAccessible: true # Set to false for production with VPC Peering
+      VPCSecurityGroups:
+        - !GetAtt DBSecurityGroup.GroupId
+
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow access to PostgreSQL
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          CidrIp: 0.0.0.0/0 # Restrict this to App Runner IP in production
+
+  # --- Secrets Management ---
+  AppSecrets:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: EduPulseAppSecrets
+      SecretString: !Sub |
+        {
+          "DATABASE_URL": "postgresql://edupulse_admin:${DBPassword}@${EduPulseDB.Endpoint.Address}:5432/postgres?schema=public",
+          "NEXTAUTH_SECRET": "${NextAuthSecret}",
+          "NEXTAUTH_URL": "https://edupulse.example.com"
+        }
+
+  # --- Application Hosting (App Runner) ---
+  EduPulseAppRunner:
+    Type: AWS::AppRunner::Service
+    Properties:
+      ServiceName: edupulse-sms-service
+      SourceConfiguration:
+        AutoDeploymentsEnabled: true
+        AuthenticationConfiguration:
+          AccessRoleArn: !GetAtt AppRunnerAccessRole.Arn
+        ImageRepository:
+          ImageIdentifier: !Sub "${AWS::AccountId}.dkr.ecr.${AWS::Region}.amazonaws.com/edupulse-sms:latest"
+          ImageRepositoryType: ECR
+          ImageConfiguration:
+            Port: '3000'
+            RuntimeEnvironmentVariables:
+              - Name: DATABASE_URL
+                Value: "placeholder" # Will be overridden by startup script or secret injection
+
+  AppRunnerAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: build.apprunner.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSAppRunnerServicePolicyForECRAccess
+
+Outputs:
+  ServiceUrl:
+    Description: URL of the EduPulse Service
+    Value: !GetAtt EduPulseAppRunner.ServiceUrl
+  DBEndpoint:
+    Description: Database endpoint
+    Value: !GetAtt EduPulseDB.Endpoint.Address

@@ -1,0 +1,66 @@
+name: Deploy EduPulse to AWS
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AWS_REGION: eu-north-1
+  ECR_REPOSITORY: edupulse-sms
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, Tag, and Push Image to ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: latest
+        run: |
+          # Create ECR repository if it doesn't exist
+          aws ecr describe-repositories --repository-names $ECR_REPOSITORY || \
+          aws ecr create-repository --repository-name $ECR_REPOSITORY
+          
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Setup SAM
+        uses: aws-actions/setup-sam@v2
+
+      - name: SAM Build
+        run: sam build --use-container
+
+      - name: Validate Secrets
+        run: |
+          if [ -z "${{ secrets.DB_PASSWORD }}" ]; then
+            echo "Error: DB_PASSWORD secret is missing in GitHub."
+            exit 1
+          fi
+          if [ -z "${{ secrets.NEXTAUTH_SECRET }}" ]; then
+            echo "Error: NEXTAUTH_SECRET secret is missing in GitHub."
+            exit 1
+          fi
+
+      - name: SAM Deploy
+        run: |
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset \
+            --stack-name edupulse-sms-stack \
+            --region ${{ env.AWS_REGION }} \
+            --capabilities CAPABILITY_IAM \
+            --parameter-overrides \
+              "DBPassword=${{ secrets.DB_PASSWORD }} NextAuthSecret=${{ secrets.NEXTAUTH_SECRET }}" \
+            --image-repository ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}
