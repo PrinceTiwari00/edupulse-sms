@@ -76,12 +76,15 @@ export default function SubscriptionAnalyticsPage() {
             <h3 className="text-2xl font-black text-slate-900 mt-1">{totalSchools}</h3>
             <p className="text-[9px] text-slate-400 font-bold mt-1 uppercase">Schools Managed</p>
          </div>
-         <div className="bg-slate-900 p-6 rounded-[32px] text-white shadow-xl relative overflow-hidden">
+         <div className="bg-indigo-600 p-8 rounded-[40px] text-white shadow-2xl shadow-indigo-200 relative overflow-hidden group">
             <div className="relative z-10">
-               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Total Realized Revenue</p>
-               <h3 className="text-3xl font-black tracking-tighter">NPR {data?.recentPayments?.reduce((acc: number, p: any) => acc + Number(p.amount), 0).toLocaleString()}</h3>
+               <p className="text-[11px] font-black text-indigo-100 uppercase tracking-[0.3em] mb-6">Realized Platform Revenue</p>
+               <h3 className="text-4xl font-black tracking-tighter leading-none">NPR {data?.recentPayments?.reduce((acc: number, p: any) => acc + Number(p.amount), 0).toLocaleString()}</h3>
+               <div className="flex items-center gap-2 mt-4 text-white font-black text-[10px] uppercase tracking-widest bg-white/20 w-fit px-3 py-1 rounded-lg backdrop-blur-md">
+                  <TrendingUp className="w-3.5 h-3.5" /> Growth Stable
+               </div>
             </div>
-            <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
+            <div className="absolute top-0 right-0 -mr-8 -mt-8 w-48 h-48 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
          </div>
          <div className="bg-indigo-600 p-6 rounded-[32px] text-white shadow-xl">
             <p className="text-[10px] font-black text-indigo-200 uppercase tracking-widest mb-4">Average LTV</p>
@@ -194,20 +197,25 @@ export default function SubscriptionAnalyticsPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-slate-900 rounded-[40px] p-8 text-white shadow-2xl relative overflow-hidden">
-            <h4 className="text-xl font-black tracking-tight mb-8 relative z-10 uppercase">Plan Distribution</h4>
-            <div className="space-y-6 relative z-10">
+          <div className="bg-[#0f172a] rounded-[48px] p-10 text-white shadow-2xl relative overflow-hidden group">
+            <div className="flex justify-between items-center mb-10 relative z-10">
+                <h4 className="text-2xl font-black tracking-tighter uppercase leading-none">Plan <br/>Allocation</h4>
+                <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <Zap className="w-6 h-6 text-indigo-400" />
+                </div>
+            </div>
+            <div className="space-y-8 relative z-10">
               {data?.plansCount?.map((plan: any) => (
-                <div key={plan.name} className="space-y-2">
+                <div key={plan.name} className="space-y-3">
                   <div className="flex justify-between items-end">
                     <div>
-                       <p className="text-xs font-black text-indigo-200 uppercase tracking-widest">{plan.name}</p>
+                       <p className="text-xs font-black text-indigo-300 uppercase tracking-[0.2em] mb-1">{plan.name}</p>
                     </div>
-                    <p className="text-[10px] font-black text-white uppercase">{plan.count} Schools</p>
+                    <p className="text-sm font-black text-white uppercase">{plan.count} Institutions</p>
                   </div>
-                  <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                  <div className="w-full bg-white/10 h-3 rounded-full overflow-hidden shadow-inner">
                     <div 
-                      className="bg-indigo-500 h-full rounded-full transition-all duration-1000" 
+                      className="bg-gradient-to-r from-indigo-600 to-indigo-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(79,70,229,0.5)]" 
                       style={{ width: `${totalSchools > 0 ? (plan.count / totalSchools) * 100 : 0}%` }} 
                     />
                   </div>

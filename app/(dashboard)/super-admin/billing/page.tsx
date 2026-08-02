@@ -184,15 +184,16 @@ export default function SaaSInstitutionalBilling() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-         <div className="bg-slate-950 p-10 rounded-[48px] text-white shadow-2xl relative overflow-hidden group">
+         <div className="bg-indigo-600 p-10 rounded-[48px] text-white shadow-2xl shadow-indigo-200 relative overflow-hidden group">
             <div className="relative z-10">
-               <p className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em] mb-6">Total Realized Revenue</p>
+               <p className="text-[11px] font-black text-indigo-100 uppercase tracking-[0.3em] mb-6">Total Realized Revenue</p>
                <h2 className="text-5xl font-black tracking-tighter leading-none">रू {financials.totalCollected.toLocaleString()}</h2>
-               <div className="flex items-center gap-2 mt-4 text-green-400 font-black text-xs uppercase tracking-widest bg-green-400/10 w-fit px-3 py-1 rounded-lg border border-green-400/20">
-                  <TrendingUp className="w-3.5 h-3.5" /> +12% Growth
+               <div className="flex items-center gap-2 mt-6 text-white font-black text-xs uppercase tracking-widest bg-white/20 w-fit px-4 py-1.5 rounded-xl backdrop-blur-md">
+                  <TrendingUp className="w-3.5 h-3.5" /> +12% Net Growth
                </div>
             </div>
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-indigo-600/10 rounded-full blur-[80px] group-hover:bg-indigo-600/20 transition-all duration-700"></div>
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-white/10 rounded-full blur-[80px] group-hover:bg-white/20 transition-all duration-700"></div>
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20"></div>
          </div>
          
          <div className="bg-white p-10 rounded-[48px] border border-slate-100 shadow-sm flex items-center gap-10 group hover:shadow-xl transition-all">
@@ -205,13 +206,13 @@ export default function SaaSInstitutionalBilling() {
             </div>
          </div>
 
-         <div className="bg-indigo-50 p-10 rounded-[48px] border border-indigo-100 flex items-center gap-10 cursor-pointer hover:bg-indigo-100 transition-all group" onClick={() => setShowPromoSetup(true)}>
-            <div className="p-6 bg-indigo-600 rounded-[32px] shadow-2xl shadow-indigo-200 group-hover:scale-110 transition-transform">
+         <div className="bg-slate-900 p-10 rounded-[48px] shadow-2xl text-white flex items-center gap-10 cursor-pointer hover:bg-slate-800 transition-all group" onClick={() => setShowPromoSetup(true)}>
+            <div className="p-6 bg-indigo-600 rounded-[32px] shadow-2xl shadow-indigo-900 group-hover:scale-110 transition-transform">
                <Tag className="w-10 h-10 text-white" />
             </div>
             <div>
-               <p className="text-xs font-black text-indigo-900 uppercase tracking-[0.2em] leading-none mb-3">Promo Center</p>
-               <p className="text-sm font-black text-indigo-600 mt-2 uppercase tracking-widest bg-white/50 px-4 py-2 rounded-xl border border-indigo-200">Issue Discount Code</p>
+               <p className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] leading-none mb-3">Promo Center</p>
+               <p className="text-sm font-black text-white mt-2 uppercase tracking-widest bg-white/10 px-4 py-2 rounded-xl border border-white/10">Issue Discount Code</p>
             </div>
          </div>
       </div>
