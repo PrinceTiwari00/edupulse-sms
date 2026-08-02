@@ -15,7 +15,6 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { getPlatformStats } from '@/actions/super-admin';
-import { getPlatformStats } from '@/actions/super-admin';
 
 export default function SuperAdminDashboard() {
   const [stats, setStats] = useState<any>(null);

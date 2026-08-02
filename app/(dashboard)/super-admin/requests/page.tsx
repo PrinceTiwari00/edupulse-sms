@@ -13,7 +13,8 @@ import {
   CheckCircle2,
   AlertCircle,
   ShieldAlert,
-  ArrowRight
+  ArrowRight,
+  Loader2
 } from 'lucide-react';
 import { getPendingRequests, approveSchoolRequest, rejectSchoolRequest } from '@/actions/school';
 

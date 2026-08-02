@@ -21,7 +21,8 @@ import {
   X,
   Save,
   Loader2,
-  ArrowRight
+  ArrowRight,
+  TrendingUp
 } from 'lucide-react';
 import Link from 'next/link';
 import { 
@@ -162,7 +163,7 @@ export default function SuperAdminSchoolsPage() {
       )}
 
       {/* Quick Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
            <div className="p-5 bg-indigo-50 rounded-[24px] group-hover:scale-110 transition-transform">
               <School className="w-8 h-8 text-indigo-600" />
@@ -190,10 +191,20 @@ export default function SuperAdminSchoolsPage() {
               <p className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{schools.filter(s => s.plan && s.plan !== 'NONE').length}</p>
            </div>
         </div>
+        <div className="bg-slate-950 p-8 rounded-[40px] text-white shadow-2xl flex items-center gap-8 group hover:bg-slate-900 transition-all relative overflow-hidden">
+           <div className="p-5 bg-white/10 rounded-[24px] group-hover:scale-110 transition-transform z-10">
+              <CreditCard className="w-8 h-8 text-indigo-400" />
+           </div>
+           <div className="z-10">
+              <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1 leading-none">Total Revenue</p>
+              <p className="text-2xl font-black text-white tracking-tighter leading-none mt-2 uppercase">रू {revenue.toLocaleString()}</p>
+           </div>
+           <div className="absolute -right-8 -top-8 w-24 h-24 bg-indigo-600/10 rounded-full blur-2xl"></div>
+        </div>
       </div>
 
       {/* School List Table */}
-      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl overflow-hidden">
+      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl overflow-hidden pb-32">
         <div className="p-10 border-b border-slate-50 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
           <div className="relative flex-1 min-w-[400px]">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -350,25 +361,6 @@ export default function SuperAdminSchoolsPage() {
               ))}
             </tbody>
           </table>
-        </div>
-
-        <div className="p-12 bg-slate-950 text-white flex flex-col md:flex-row justify-between items-center gap-10">
-           <div className="flex items-center gap-8">
-              <div className="p-5 bg-white/5 rounded-3xl border border-white/10 shadow-2xl">
-                 <CreditCard className="w-10 h-10 text-indigo-400" />
-              </div>
-              <div>
-                 <p className="text-3xl font-black tracking-tighter uppercase leading-none mb-3">Platform Revenue: रू {revenue.toLocaleString()}</p>
-                 <p className="text-xs text-slate-500 font-black uppercase tracking-[0.3em] flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-indigo-500" />
-                    +14.8% Realized Growth
-                 </p>
-              </div>
-           </div>
-           <Link href="/super-admin/billing" className="bg-indigo-600 hover:bg-indigo-500 px-12 py-5 rounded-[24px] font-black text-xs transition-all shadow-2xl shadow-indigo-900/50 uppercase tracking-[0.3em] flex items-center gap-3 active:scale-95 group">
-              Launch Billing Terminal
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-           </Link>
         </div>
       </div>
 
