@@ -305,11 +305,33 @@ export async function getSaaSInvoiceById(id: string) {
 export async function deleteSaaSInvoice(id: string) {
   try {
     // Delete payments associated with the invoice first or use transaction
-    await prisma.$transaction([
-      prisma.subscriptionPayment.deleteMany({ where: { invoiceId: id } }),
-      prisma.subscriptionInvoice.delete({ where: { id } })
-    ]);
+    await prisma.$transaction(async (tx) => {
+      const invoice = await tx.subscriptionInvoice.findUnique({
+        where: { id },
+        select: { schoolId: true, status: true }
+      });
+
+      if (invoice) {
+        // If the invoice was PAID, reverse the school's subscription benefits
+        if (invoice.status === "PAID") {
+          await tx.school.update({
+            where: { id: invoice.schoolId },
+            data: {
+              plan: null,
+              subscriptionExpiresAt: null,
+              isActive: false
+            }
+          });
+        }
+
+        // Delete all payments and then the invoice
+        await tx.subscriptionPayment.deleteMany({ where: { invoiceId: id } });
+        await tx.subscriptionInvoice.delete({ where: { id } });
+      }
+    });
+
     revalidatePath("/super-admin/billing");
+    revalidatePath("/super-admin/schools");
     return { success: true };
   } catch (error: any) {
     return { success: false, error: error.message };
