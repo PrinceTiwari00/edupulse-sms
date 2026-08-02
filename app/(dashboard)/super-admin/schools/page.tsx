@@ -254,7 +254,7 @@ export default function SuperAdminSchoolsPage() {
       </div>
 
       {/* School List Table */}
-      <div className="bg-white rounded-[48px] border border-slate-200 shadow-xl min-h-[400px] pb-96 overflow-hidden">
+      <div className="bg-white rounded-[48px] border border-slate-200 shadow-xl min-h-[400px] pb-96">
         <div className="p-10 border-b border-slate-100 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
           <div className="relative flex-1 min-w-[300px]">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
@@ -271,7 +271,7 @@ export default function SuperAdminSchoolsPage() {
           </div>
         </div>
 
-        <div className="overflow-hidden">
+        <div>
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] border-b border-slate-100">
