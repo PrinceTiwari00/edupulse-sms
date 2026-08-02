@@ -289,9 +289,9 @@ export default function SuperAdminSchoolsPage() {
                     <span className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm border ${
                       school.plan === 'ENTERPRISE' ? 'bg-slate-900 text-white border-slate-900' :
                       school.plan === 'PRO' ? 'bg-indigo-600 text-white border-indigo-600' :
-                      school.plan === 'BASIC' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-slate-50 text-slate-500 border-slate-100'
+                      school.plan === 'BASIC' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-slate-50 text-slate-400 border-slate-100'
                     }`}>
-                      {school.plan}
+                      {school.plan || 'NONE'}
                     </span>
                   </td>
                   <td className="px-8 py-6">

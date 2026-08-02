@@ -363,7 +363,7 @@ export default function SaaSInstitutionalBilling() {
             <div className="bg-indigo-600 rounded-[40px] p-8 text-white shadow-2xl relative overflow-hidden">
                <h4 className="text-xl font-black tracking-tight mb-8 relative z-10 uppercase">SaaS Tiers</h4>
                <div className="space-y-4 relative z-10">
-                  {plans.map((plan) => (
+                  {plans.filter(p => p.name !== 'FREE').map((plan) => (
                      <div key={plan.id} className="p-4 bg-white/10 rounded-2xl border border-white/10 flex justify-between items-center group">
                         <div>
                            <p className="text-[10px] font-black uppercase tracking-[0.2em]">{plan.name}</p>

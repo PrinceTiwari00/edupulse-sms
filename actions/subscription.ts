@@ -112,13 +112,14 @@ export async function generateSaaSInvoice(data: {
       data: {
         invoiceNumber: `SAAS-INV-${Date.now()}`,
         schoolId: data.schoolId,
+        plan: data.planName, // Save the target plan
         amount: plan.price,
-        discount: discount + walletCredit, // Total discount includes wallet credit used
+        discount: discount + walletCredit, 
         totalAmount: finalPayable,
         dueDate: data.dueDate,
         status: finalPayable === 0 ? "PAID" : "UNPAID",
         billingItems: [
-          { name: `${data.planName} Annual Subscription`, price: Number(plan.price) },
+          { name: `${data.planName} Monthly Subscription`, price: Number(plan.price) },
           { name: "Wallet Credit Applied", price: -walletCredit }
         ]
       }
@@ -128,6 +129,18 @@ export async function generateSaaSInvoice(data: {
       await prisma.school.update({
         where: { id: data.schoolId },
         data: { walletBalance: Number(school.walletBalance) - walletCredit }
+      });
+    }
+
+    // If fully paid immediately (via wallet/promo), update the school's plan
+    if (finalPayable === 0) {
+      await prisma.school.update({
+        where: { id: data.schoolId },
+        data: {
+          plan: data.planName,
+          subscriptionExpiresAt: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+          isActive: true
+        }
       });
     }
 
@@ -204,7 +217,8 @@ export async function collectSubscriptionPayment(data: {
           where: { id: invoice.schoolId },
           data: { 
             plan: invoice.plan,
-            subscriptionExpiresAt: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
+            // Expiration date from 1 month of the invoice date
+            subscriptionExpiresAt: new Date(new Date(invoice.createdAt).setMonth(new Date(invoice.createdAt).getMonth() + 1)),
             isActive: true 
           }
         });

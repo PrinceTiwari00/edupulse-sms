@@ -38,7 +38,7 @@ export async function approveSchoolRequest(id: string) {
       where: { id },
       data: { 
         status: "APPROVED",
-        isActive: true,
+        isActive: false, // Inactive by default
       },
     });
     
@@ -108,9 +108,9 @@ export async function createSchool(data: {
         subdomain: data.subdomain.toLowerCase(),
         email: data.email,
         address: data.address,
-        plan: data.plan || "FREE",
+        plan: data.plan || null,
         status: "APPROVED",
-        isActive: true,
+        isActive: false, // Default to inactive
       },
     });
 

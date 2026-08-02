@@ -48,7 +48,6 @@ enum PaymentMode {
 }
 
 enum SubscriptionPlan {
-  FREE
   BASIC
   PRO
   ENTERPRISE
@@ -75,7 +74,7 @@ model School {
   isActive      Boolean  @default(false)
   status        SchoolStatus @default(PENDING)
   
-  plan          SubscriptionPlan @default(FREE)
+  plan          SubscriptionPlan?
   subscriptionExpiresAt DateTime?
   walletBalance Decimal  @default(0)
   
@@ -123,7 +122,7 @@ model SubscriptionInvoice {
   schoolId       String
   school         School    @relation(fields: [schoolId], references: [id])
   
-  plan           SubscriptionPlan @default(FREE)
+  plan           SubscriptionPlan?
   amount         Decimal   // Base plan price
   discount       Decimal   @default(0)
   totalAmount    Decimal   // amount - discount
