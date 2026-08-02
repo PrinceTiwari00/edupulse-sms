@@ -33,6 +33,7 @@ import {
   bulkToggleStatus,
   bulkDeleteSchools
 } from '@/actions/school';
+import { getSchoolUsers, createSchoolUser, updateSchoolUser, deleteSchoolUser } from '@/actions/user-management';
 import { getPlatformRevenueNPR } from '@/actions/subscription';
 import { SubscriptionPlan } from '@prisma/client';
 
@@ -50,6 +51,12 @@ export default function SuperAdminSchoolsPage() {
   const [editingSchool, setEditingSchool] = useState<any>(null);
   const [isUpdating, setIsUpdating] = useState(false);
 
+  // User Management State
+  const [manageUserSchool, setManageUserSchool] = useState<any>(null);
+  const [schoolUsers, setSchoolUsers] = useState<any[]>([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+  const [editingUser, setEditingUser] = useState<any>(null);
+
   const fetchSchools = async () => {
     setLoading(true);
     const res = await getSchools();
@@ -64,6 +71,16 @@ export default function SuperAdminSchoolsPage() {
   useEffect(() => {
     fetchSchools();
   }, []);
+
+  useEffect(() => {
+    if (manageUserSchool) {
+      setLoadingUsers(true);
+      getSchoolUsers(manageUserSchool.id).then(res => {
+        if (res.success && res.data) setSchoolUsers(res.data);
+        setLoadingUsers(false);
+      });
+    }
+  }, [manageUserSchool]);
 
   // --- Handlers ---
   
@@ -96,6 +113,49 @@ export default function SuperAdminSchoolsPage() {
       fetchSchools();
     }
     setIsUpdating(false);
+  };
+
+  const handleUserSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsUpdating(true);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const userData: any = {
+      schoolId: manageUserSchool.id,
+      username: formData.get('username') as string,
+      email: formData.get('email') as string,
+      firstName: formData.get('firstName') as string,
+      lastName: formData.get('lastName') as string,
+      role: formData.get('role') as any,
+    };
+
+    const password = formData.get('password') as string;
+    if (password) userData.password = password;
+
+    let res;
+    if (editingUser) {
+      res = await updateSchoolUser(editingUser.id, userData);
+    } else {
+      res = await createSchoolUser(userData);
+    }
+
+    if (res.success) {
+      const updatedUsers = await getSchoolUsers(manageUserSchool.id);
+      if (updatedUsers.success) setSchoolUsers(updatedUsers.data);
+      setEditingUser(null);
+    } else {
+      alert(res.error);
+    }
+    setIsUpdating(false);
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    if (confirm("Delete this user?")) {
+      const res = await deleteSchoolUser(userId);
+      if (res.success) {
+        const updatedUsers = await getSchoolUsers(manageUserSchool.id);
+        if (updatedUsers.success) setSchoolUsers(updatedUsers.data);
+      }
+    }
   };
 
   // --- Bulk Actions ---
@@ -331,6 +391,9 @@ export default function SuperAdminSchoolsPage() {
                           <div className="p-4 space-y-2 text-left">
                             <button onClick={() => { setEditingSchool(school); setOpenMenuId(null); }} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
                                <Edit className="w-5 h-5 opacity-40" /> Edit Institution
+                            </button>
+                            <button onClick={() => { setManageUserSchool(school); setOpenMenuId(null); }} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
+                               <Users className="w-5 h-5 opacity-40" /> Manage Users
                             </button>
                             <button onClick={() => handleToggleStatus(school.id, school.isActive)} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
                                <Zap className="w-5 h-5 opacity-40" /> {school.isActive ? 'Suspend Access' : 'Activate Access'}
