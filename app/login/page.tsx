@@ -44,56 +44,55 @@ export default function LoginPage() {
       <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 bg-white rounded-[64px] border border-slate-100 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12)] overflow-hidden min-h-[800px]">
         
         {/* Left Side - Hero / Branding */}
-        <div className="bg-slate-950 p-16 flex flex-col justify-between relative overflow-hidden group">
+        <div className="bg-slate-50 p-16 flex flex-col justify-between relative overflow-hidden group border-r border-slate-100">
           <div className="relative z-10">
-            <Link href="/" className="flex items-center gap-4 text-white hover:opacity-80 transition-all">
-                <div className="bg-indigo-600 p-3 rounded-[24px] shadow-2xl shadow-indigo-900/40">
+            <Link href="/" className="flex items-center gap-4 text-slate-900 hover:opacity-80 transition-all">
+                <div className="bg-indigo-600 p-3 rounded-[24px] shadow-2xl shadow-indigo-200">
                   <School className="w-10 h-10 text-white" />
                 </div>
                 <span className="text-4xl font-black tracking-tighter uppercase leading-none">EduPulse</span>
             </Link>
             
             <div className="mt-24 space-y-10">
-              <h1 className="text-6xl font-black text-white leading-[1.1] tracking-tighter uppercase">
+              <h1 className="text-6xl font-black text-slate-900 leading-[1.1] tracking-tighter uppercase">
                 Modern <br/>
-                <span className="text-indigo-500">School</span> <br/>
+                <span className="text-indigo-600 underline decoration-indigo-200 underline-offset-8">School</span> <br/>
                 Governance.
               </h1>
-              <p className="text-xl text-slate-400 font-bold leading-relaxed max-w-md">
+              <p className="text-xl text-slate-500 font-bold leading-relaxed max-w-md">
                 The next-generation ERP for institutional excellence. Automated, multi-tenant, and high-fidelity.
               </p>
             </div>
 
             <div className="mt-24 grid grid-cols-2 gap-8">
                <div className="space-y-3">
-                  <div className="p-3 bg-white/5 rounded-2xl w-fit border border-white/5">
-                     <ShieldCheck className="w-6 h-6 text-indigo-400" />
+                  <div className="p-3 bg-white rounded-2xl w-fit shadow-sm border border-slate-100">
+                     <ShieldCheck className="w-6 h-6 text-indigo-600" />
                   </div>
-                  <p className="text-white font-black uppercase text-sm tracking-widest leading-none">Verified Secure</p>
-                  <p className="text-slate-500 text-xs font-bold leading-relaxed">Enterprise-grade data isolation & encryption.</p>
+                  <p className="text-slate-900 font-black uppercase text-sm tracking-widest leading-none">Verified Secure</p>
+                  <p className="text-slate-400 text-xs font-bold leading-relaxed uppercase tracking-tighter">Enterprise Data Isolation</p>
                </div>
                <div className="space-y-3">
-                  <div className="p-3 bg-white/5 rounded-2xl w-fit border border-white/5">
-                     <Zap className="w-6 h-6 text-indigo-400" />
+                  <div className="p-3 bg-white rounded-2xl w-fit shadow-sm border border-slate-100">
+                     <Zap className="w-6 h-6 text-indigo-600" />
                   </div>
-                  <p className="text-white font-black uppercase text-sm tracking-widest leading-none">Real-time Sync</p>
-                  <p className="text-slate-500 text-xs font-bold leading-relaxed">Sub-second latency across global tenants.</p>
+                  <p className="text-slate-900 font-black uppercase text-sm tracking-widest leading-none">Real-time Sync</p>
+                  <p className="text-slate-400 text-xs font-bold leading-relaxed uppercase tracking-tighter">Global Low Latency</p>
                </div>
             </div>
           </div>
 
-          <div className="relative z-10 flex items-center justify-between text-slate-500 text-xs font-black uppercase tracking-widest">
-             <p>© 2024 EDUPULSE PLATFORM</p>
+          <div className="relative z-10 flex items-center justify-between text-slate-300 text-[10px] font-black uppercase tracking-widest">
+             <p>© 2026 EDUPULSE PLATFORM</p>
              <div className="flex gap-4">
-                <Link href="#" className="hover:text-white transition-colors">HELP</Link>
-                <Link href="#" className="hover:text-white transition-colors">LEGAL</Link>
+                <Link href="#" className="hover:text-indigo-600 transition-colors">HELP</Link>
+                <Link href="#" className="hover:text-indigo-600 transition-colors">LEGAL</Link>
              </div>
           </div>
 
           {/* Background Decorations */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-indigo-500/5 to-transparent pointer-events-none"></div>
-          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] group-hover:bg-indigo-600/20 transition-all duration-700"></div>
-          <div className="absolute -top-32 -left-32 w-96 h-96 bg-indigo-600/5 rounded-full blur-[100px]"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-indigo-500/[0.03] to-transparent pointer-events-none"></div>
+          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-100 rounded-full blur-[100px] transition-all duration-700"></div>
         </div>
 
         {/* Right Side - Login Form */}

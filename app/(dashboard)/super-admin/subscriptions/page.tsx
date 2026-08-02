@@ -76,15 +76,15 @@ export default function SubscriptionAnalyticsPage() {
             <h3 className="text-2xl font-black text-slate-900 mt-1">{totalSchools}</h3>
             <p className="text-[9px] text-slate-400 font-bold mt-1 uppercase">Schools Managed</p>
          </div>
-         <div className="bg-indigo-600 p-8 rounded-[40px] text-white shadow-2xl shadow-indigo-200 relative overflow-hidden group">
+         <div className="bg-white p-8 rounded-[40px] border-2 border-indigo-600 text-slate-900 shadow-2xl shadow-indigo-100 relative overflow-hidden group hover:shadow-indigo-200 transition-all">
             <div className="relative z-10">
-               <p className="text-[11px] font-black text-indigo-100 uppercase tracking-[0.3em] mb-6">Realized Platform Revenue</p>
-               <h3 className="text-4xl font-black tracking-tighter leading-none">NPR {data?.recentPayments?.reduce((acc: number, p: any) => acc + Number(p.amount), 0).toLocaleString()}</h3>
-               <div className="flex items-center gap-2 mt-4 text-white font-black text-[10px] uppercase tracking-widest bg-white/20 w-fit px-3 py-1 rounded-lg backdrop-blur-md">
+               <p className="text-[11px] font-black text-indigo-400 uppercase tracking-[0.3em] mb-6">Realized Platform Revenue</p>
+               <h3 className="text-4xl font-black tracking-tighter leading-none text-slate-900">NPR {data?.recentPayments?.reduce((acc: number, p: any) => acc + Number(p.amount), 0).toLocaleString()}</h3>
+               <div className="flex items-center gap-2 mt-6 text-indigo-600 font-black text-[10px] uppercase tracking-widest bg-indigo-50 w-fit px-4 py-1.5 rounded-xl border border-indigo-100">
                   <TrendingUp className="w-3.5 h-3.5" /> Growth Stable
                </div>
             </div>
-            <div className="absolute top-0 right-0 -mr-8 -mt-8 w-48 h-48 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-700"></div>
+            <div className="absolute top-0 right-0 -mr-8 -mt-8 w-48 h-48 bg-indigo-50 rounded-full blur-3xl group-hover:bg-indigo-100 transition-all duration-700"></div>
          </div>
          <div className="bg-indigo-600 p-6 rounded-[32px] text-white shadow-xl">
             <p className="text-[10px] font-black text-indigo-200 uppercase tracking-widest mb-4">Average LTV</p>
@@ -197,11 +197,11 @@ export default function SubscriptionAnalyticsPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-[#0f172a] rounded-[48px] p-10 text-white shadow-2xl relative overflow-hidden group">
+          <div className="bg-white rounded-[48px] border border-slate-100 p-10 shadow-xl relative overflow-hidden group">
             <div className="flex justify-between items-center mb-10 relative z-10">
-                <h4 className="text-2xl font-black tracking-tighter uppercase leading-none">Plan <br/>Allocation</h4>
-                <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                    <Zap className="w-6 h-6 text-indigo-400" />
+                <h4 className="text-2xl font-black tracking-tighter uppercase leading-none text-slate-900">Plan <br/>Allocation</h4>
+                <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
+                    <Zap className="w-6 h-6 text-indigo-600" />
                 </div>
             </div>
             <div className="space-y-8 relative z-10">
@@ -209,20 +209,20 @@ export default function SubscriptionAnalyticsPage() {
                 <div key={plan.name} className="space-y-3">
                   <div className="flex justify-between items-end">
                     <div>
-                       <p className="text-xs font-black text-indigo-300 uppercase tracking-[0.2em] mb-1">{plan.name}</p>
+                       <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{plan.name}</p>
                     </div>
-                    <p className="text-sm font-black text-white uppercase">{plan.count} Institutions</p>
+                    <p className="text-sm font-black text-slate-900 uppercase">{plan.count} Institutions</p>
                   </div>
-                  <div className="w-full bg-white/10 h-3 rounded-full overflow-hidden shadow-inner">
+                  <div className="w-full bg-slate-50 h-3 rounded-full overflow-hidden shadow-inner border border-slate-100">
                     <div 
-                      className="bg-gradient-to-r from-indigo-600 to-indigo-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(79,70,229,0.5)]" 
+                      className="bg-gradient-to-r from-indigo-600 to-indigo-400 h-full rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(79,70,229,0.3)]" 
                       style={{ width: `${totalSchools > 0 ? (plan.count / totalSchools) * 100 : 0}%` }} 
                     />
                   </div>
                 </div>
               ))}
             </div>
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-500/5 to-transparent pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-500/[0.03] to-transparent pointer-events-none"></div>
           </div>
 
           <div className="bg-indigo-50 p-8 rounded-[40px] border border-indigo-100">

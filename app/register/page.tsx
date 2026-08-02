@@ -63,10 +63,10 @@ export default function RegisterPage() {
       <div className="w-full max-w-[1300px] grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[64px] border border-slate-100 shadow-2xl overflow-hidden min-h-[850px]">
         
         {/* Sidebar Left - Branding */}
-        <div className="lg:col-span-4 bg-slate-950 p-16 flex flex-col justify-between relative overflow-hidden group">
+        <div className="lg:col-span-4 bg-slate-50 p-16 flex flex-col justify-between relative overflow-hidden group border-r border-slate-100">
            <div className="relative z-10">
-                <Link href="/" className="flex items-center gap-4 text-white hover:opacity-80 transition-all">
-                    <div className="bg-indigo-600 p-2.5 rounded-[20px] shadow-2xl shadow-indigo-900/40">
+                <Link href="/" className="flex items-center gap-4 text-slate-900 hover:opacity-80 transition-all">
+                    <div className="bg-indigo-600 p-2.5 rounded-[20px] shadow-2xl shadow-indigo-200">
                         <School className="w-8 h-8 text-white" />
                     </div>
                     <span className="text-3xl font-black tracking-tighter uppercase leading-none">EduPulse</span>
@@ -74,10 +74,10 @@ export default function RegisterPage() {
 
                 <div className="mt-32 space-y-12">
                    <div className="space-y-4">
-                        <h2 className="text-4xl font-black text-white leading-none uppercase tracking-tighter">Initialize Institutional Setup</h2>
+                        <h2 className="text-4xl font-black text-slate-900 leading-none uppercase tracking-tighter">Initialize Institutional Setup</h2>
                         <div className="h-1.5 w-16 bg-indigo-600 rounded-full"></div>
                    </div>
-                   <p className="text-lg text-slate-400 font-bold leading-relaxed">
+                   <p className="text-lg text-slate-500 font-bold leading-relaxed">
                       Begin your journey towards modern school governance. Configure your dedicated workspace in under 60 seconds.
                    </p>
                 </div>
@@ -85,26 +85,26 @@ export default function RegisterPage() {
 
            <div className="relative z-10 space-y-8">
               <div className="flex items-center gap-6">
-                 <div className="p-3 bg-white/5 rounded-2xl border border-white/5">
-                    <ShieldCheck className="w-6 h-6 text-indigo-400" />
+                 <div className="p-3 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                    <ShieldCheck className="w-6 h-6 text-indigo-600" />
                  </div>
                  <div>
-                    <p className="text-white font-black uppercase text-xs tracking-widest leading-none">Data Sovereignty</p>
-                    <p className="text-slate-500 text-[10px] font-bold mt-1 uppercase tracking-tighter">Strict Tenant Isolation</p>
+                    <p className="text-slate-900 font-black uppercase text-xs tracking-widest leading-none">Data Sovereignty</p>
+                    <p className="text-slate-400 text-[10px] font-bold mt-1 uppercase tracking-tighter">Strict Tenant Isolation</p>
                  </div>
               </div>
               <div className="flex items-center gap-6">
-                 <div className="p-3 bg-white/5 rounded-2xl border border-white/5">
-                    <Zap className="w-6 h-6 text-indigo-400" />
+                 <div className="p-3 bg-white rounded-2xl border border-slate-100 shadow-sm">
+                    <Zap className="w-6 h-6 text-indigo-600" />
                  </div>
                  <div>
-                    <p className="text-white font-black uppercase text-xs tracking-widest leading-none">Instant Provisioning</p>
-                    <p className="text-slate-500 text-[10px] font-bold mt-1 uppercase tracking-tighter">Automated Cloud Deploy</p>
+                    <p className="text-slate-900 font-black uppercase text-xs tracking-widest leading-none">Instant Provisioning</p>
+                    <p className="text-slate-400 text-[10px] font-bold mt-1 uppercase tracking-tighter">Automated Cloud Deploy</p>
                  </div>
               </div>
            </div>
 
-           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-600/5 rounded-full blur-[100px]"></div>
+           <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-indigo-100 rounded-full blur-[100px]"></div>
         </div>
 
         {/* Center - Form */}
