@@ -31,55 +31,55 @@ export default function DashboardLayout({
       {/* Mobile Sidebar Overlay */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] lg:hidden animate-in fade-in duration-300"
+          className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[100] lg:hidden animate-in fade-in duration-300"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar - Desktop Fixed, Mobile Drawer */}
-      <aside className={`fixed inset-y-0 left-0 z-[101] w-80 lg:relative lg:translate-x-0 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed inset-y-0 left-0 z-[101] w-72 lg:w-80 lg:relative lg:translate-x-0 transform transition-transform duration-500 cubic-bezier(0.4, 0, 0.2, 1) ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
         <Sidebar role={role} onClose={() => setIsSidebarOpen(false)} />
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Header */}
-        <header className="h-24 bg-white border-b border-slate-200 flex items-center justify-between px-6 lg:px-12 no-print shadow-sm sticky top-0 z-30">
-          <div className="flex items-center gap-4 lg:gap-8">
+      <div className="flex-1 flex flex-col min-w-0 h-full relative">
+        {/* Header - Compact on mobile */}
+        <header className="h-16 lg:h-24 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-12 no-print shadow-sm sticky top-0 z-30 shrink-0">
+          <div className="flex items-center gap-2 lg:gap-8">
             <button 
               onClick={() => setIsSidebarOpen(true)}
-              className="lg:hidden p-3.5 bg-slate-50 rounded-2xl text-slate-900 hover:bg-indigo-50 hover:text-indigo-600 transition-all border border-slate-100"
+              className="lg:hidden p-2.5 bg-slate-50 rounded-xl text-slate-900 hover:bg-indigo-50 transition-all border border-slate-100"
             >
-              <Menu className="w-7 h-7" />
+              <Menu className="w-5 h-5" />
             </button>
             <div className="min-w-0">
-                <h2 className="text-xl lg:text-3xl font-black text-slate-900 tracking-tighter leading-none truncate">
-                Welcome, {userName}
+                <h2 className="text-base lg:text-3xl font-black text-slate-900 tracking-tight leading-none truncate">
+                {userName}
                 </h2>
-                <p className="text-[11px] lg:text-xs font-black text-indigo-700 uppercase tracking-widest mt-1.5">Platform Control Center</p>
+                <p className="text-[9px] lg:text-xs font-black text-indigo-700 uppercase tracking-widest mt-1 lg:mt-1.5">Platform Core</p>
             </div>
           </div>
           
-          <div className="flex items-center gap-3 lg:gap-6">
-            <button className="relative p-3 text-slate-500 hover:text-indigo-600 bg-slate-50 hover:bg-indigo-50 rounded-2xl transition-all group lg:block hidden">
-              <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
-              <Bell className="w-6 h-6" />
+          <div className="flex items-center gap-2 lg:gap-6">
+            <button className="relative p-2.5 text-slate-500 hover:text-indigo-600 bg-slate-50 rounded-xl transition-all group">
+              <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
+              <Bell className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-3 lg:gap-4 lg:pl-6 lg:border-l border-slate-200">
                 <div className="text-right lg:block hidden">
                     <p className="text-sm font-black text-slate-900 leading-none mb-0.5">{userName}</p>
                     <p className="text-xs font-bold text-slate-600 uppercase tracking-tighter">{role.replace('_', ' ')}</p>
                 </div>
-                <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-indigo-100 shrink-0">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-xs lg:text-sm shadow-lg shadow-indigo-100 shrink-0">
                 {userName.substring(0, 2).toUpperCase()}
                 </div>
             </div>
           </div>
         </header>
 
-        {/* Scrollable Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 lg:p-12 bg-[#fcfdff]">
-          <div className="max-w-[1600px] mx-auto">
+        {/* Scrollable Content Area - Optimized padding for mobile */}
+        <main className="flex-1 overflow-y-auto p-4 lg:p-12 bg-[#fcfdff] scroll-smooth">
+          <div className="max-w-[1600px] mx-auto pb-10">
             {children}
           </div>
         </main>
