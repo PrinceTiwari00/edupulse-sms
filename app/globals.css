@@ -51,4 +51,18 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: white;
+  font-size: 15px; /* Slightly larger base font */
+  line-height: 1.6;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-black;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl;
+  }
 }

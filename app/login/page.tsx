@@ -1,20 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
-import { 
-  User, 
-  Eye, 
-  EyeOff,
-  Lock, 
-  School,
-  ArrowRight,
-} from 'lucide-react';
-import Link from 'next/link';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { School, ArrowRight, ShieldCheck, Zap, Globe, Sparkles, Loader2, Lock, User } from 'lucide-react';
+import Link from 'next/link';
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -26,135 +18,156 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
 
-    try {
-      const res = await signIn('credentials', {
-        username,
-        password,
-        redirect: false,
-      });
+    const result = await signIn('credentials', {
+      username,
+      password,
+      redirect: false,
+    });
 
-      if (res?.error) {
-        setError('Invalid username or password');
-      } else {
-        // Successful login - redirect to appropriate dashboard based on role?
-        // For now, redirect to /admin as a default landing
-        router.push('/admin');
-        router.refresh();
-      }
-    } catch (err) {
-      setError('An unexpected error occurred');
-    } finally {
+    if (result?.error) {
+      setError('AUTHENTICATION FAILED: INVALID CREDENTIALS');
       setLoading(false);
+    } else {
+      router.refresh();
+      router.push('/');
     }
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-6 bg-slate-50">
-      <div className="relative z-10 w-full max-w-[850px] bg-white rounded-[32px] border border-slate-100 shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[500px]">
+    <div className="min-h-screen bg-white flex items-center justify-center p-6 selection:bg-indigo-100">
+      <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 bg-white rounded-[64px] border border-slate-100 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12)] overflow-hidden min-h-[800px]">
         
-        {/* Left Section - Indigo Sidebar */}
-        <div className="w-full md:w-[40%] bg-indigo-600 p-8 text-white flex flex-col justify-between items-center text-center">
-          <div className="space-y-6 flex flex-col items-center">
-            <Link href="/" className="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner hover:bg-white/30 transition-colors">
-              <School className="w-9 h-9 text-white" />
+        {/* Left Side - Hero / Branding */}
+        <div className="bg-slate-950 p-16 flex flex-col justify-between relative overflow-hidden group">
+          <div className="relative z-10">
+            <Link href="/" className="flex items-center gap-4 text-white hover:opacity-80 transition-all">
+                <div className="bg-indigo-600 p-3 rounded-[24px] shadow-2xl shadow-indigo-900/40">
+                  <School className="w-10 h-10 text-white" />
+                </div>
+                <span className="text-4xl font-black tracking-tighter uppercase leading-none">EduPulse</span>
             </Link>
-            <div>
-              <h2 className="text-2xl font-black tracking-tight uppercase">EduPulse</h2>
-              <p className="text-indigo-100 text-xs font-bold tracking-[0.2em] uppercase mt-1">Management System</p>
+            
+            <div className="mt-24 space-y-10">
+              <h1 className="text-6xl font-black text-white leading-[1.1] tracking-tighter uppercase">
+                Modern <br/>
+                <span className="text-indigo-500">School</span> <br/>
+                Governance.
+              </h1>
+              <p className="text-xl text-slate-400 font-bold leading-relaxed max-w-md">
+                The next-generation ERP for institutional excellence. Automated, multi-tenant, and high-fidelity.
+              </p>
+            </div>
+
+            <div className="mt-24 grid grid-cols-2 gap-8">
+               <div className="space-y-3">
+                  <div className="p-3 bg-white/5 rounded-2xl w-fit border border-white/5">
+                     <ShieldCheck className="w-6 h-6 text-indigo-400" />
+                  </div>
+                  <p className="text-white font-black uppercase text-sm tracking-widest leading-none">Verified Secure</p>
+                  <p className="text-slate-500 text-xs font-bold leading-relaxed">Enterprise-grade data isolation & encryption.</p>
+               </div>
+               <div className="space-y-3">
+                  <div className="p-3 bg-white/5 rounded-2xl w-fit border border-white/5">
+                     <Zap className="w-6 h-6 text-indigo-400" />
+                  </div>
+                  <p className="text-white font-black uppercase text-sm tracking-widest leading-none">Real-time Sync</p>
+                  <p className="text-slate-500 text-xs font-bold leading-relaxed">Sub-second latency across global tenants.</p>
+               </div>
             </div>
           </div>
 
-          <div className="w-full space-y-4">
-             <div className="p-4 bg-white/10 rounded-2xl border border-white/10">
-                <p className="text-xs font-medium text-indigo-50 leading-relaxed">
-                  Trusted by 500+ institutions worldwide for seamless academic operations.
-                </p>
-             </div>
-             
-             <div className="flex gap-2 w-full">
-                <Link href="/login/teacher" className="flex-1 bg-white/10 hover:bg-white/20 text-white py-2.5 rounded-xl font-bold text-[10px] transition-all uppercase border border-white/10 flex items-center justify-center">
-                  Teacher Portal
-                </Link>
-                <Link href="/login/student" className="flex-1 bg-white/10 hover:bg-white/20 text-white py-2.5 rounded-xl font-bold text-[10px] transition-all uppercase border border-white/10 flex items-center justify-center">
-                  Student Portal
-                </Link>
+          <div className="relative z-10 flex items-center justify-between text-slate-500 text-xs font-black uppercase tracking-widest">
+             <p>© 2024 EDUPULSE PLATFORM</p>
+             <div className="flex gap-4">
+                <Link href="#" className="hover:text-white transition-colors">HELP</Link>
+                <Link href="#" className="hover:text-white transition-colors">LEGAL</Link>
              </div>
           </div>
+
+          {/* Background Decorations */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-indigo-500/5 to-transparent pointer-events-none"></div>
+          <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] group-hover:bg-indigo-600/20 transition-all duration-700"></div>
+          <div className="absolute -top-32 -left-32 w-96 h-96 bg-indigo-600/5 rounded-full blur-[100px]"></div>
         </div>
 
-        {/* Right Section - Sign In Form */}
-        <div className="w-full md:w-[60%] p-12 bg-white flex flex-col justify-center">
-          <div className="mb-10">
-            <h1 className="text-3xl font-black text-slate-900 tracking-tight">Sign In</h1>
-            <p className="text-slate-500 font-medium mt-1">Welcome back. Please sign in to continue.</p>
-          </div>
-
-          <form className="space-y-5" onSubmit={handleLogin}>
-            {error && (
-              <div className="p-3 bg-red-50 border border-red-100 text-red-600 text-xs font-bold rounded-xl animate-shake">
-                {error}
+        {/* Right Side - Login Form */}
+        <div className="p-20 flex flex-col justify-center bg-white relative">
+           <div className="max-w-[440px] mx-auto w-full">
+              <div className="mb-12">
+                 <h2 className="text-4xl font-black text-slate-900 tracking-tighter uppercase leading-none">Terminal Access</h2>
+                 <p className="text-lg text-slate-400 font-bold mt-4">Provide credentials to enter your management dashboard.</p>
               </div>
-            )}
 
-            <div className="space-y-1.5">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Username</label>
-              <div className="relative">
-                <input 
-                  type="text" 
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="admin"
-                  required
-                  className="w-full px-5 py-4 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold transition-all"
-                />
-                <User className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <form onSubmit={handleLogin} className="space-y-8">
+                {error && (
+                  <div className="bg-red-50 border-2 border-red-100 text-red-600 p-6 rounded-[32px] text-xs font-black uppercase tracking-widest flex items-center gap-4 animate-in slide-in-from-top-2 duration-300 shadow-xl shadow-red-100">
+                    <Lock className="w-5 h-5" />
+                    {error}
+                  </div>
+                )}
+
+                <div className="space-y-2 group">
+                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] ml-2 group-focus-within:text-indigo-600 transition-colors">Username ID</label>
+                  <div className="relative">
+                    <User className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-300 group-focus-within:text-indigo-600 transition-colors" />
+                    <input 
+                      type="text" 
+                      placeholder="e.g. admin.zenith"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                      className="w-full pl-16 pr-8 py-6 bg-slate-50 border-2 border-slate-50 rounded-[32px] focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white transition-all outline-none text-lg font-bold placeholder:text-slate-300"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2 group">
+                  <div className="flex justify-between items-center ml-2">
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.3em] group-focus-within:text-indigo-600 transition-colors">Secret Password</label>
+                    <Link href="/forgot-password" title="Recover Access" className="text-[10px] font-black text-slate-400 hover:text-indigo-600 transition-colors uppercase tracking-widest">Recovery</Link>
+                  </div>
+                  <div className="relative">
+                    <Lock className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-300 group-focus-within:text-indigo-600 transition-colors" />
+                    <input 
+                      type="password" 
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                      className="w-full pl-16 pr-8 py-6 bg-slate-50 border-2 border-slate-50 rounded-[32px] focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white transition-all outline-none text-lg font-bold placeholder:text-slate-300"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="w-full py-7 bg-slate-950 text-white rounded-[32px] font-black text-sm uppercase tracking-[0.3em] shadow-[0_24px_50px_-10px_rgba(0,0,0,0.3)] hover:bg-indigo-600 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-4 group active:scale-95 disabled:opacity-50"
+                  >
+                    {loading ? <Loader2 className="w-7 h-7 animate-spin" /> : (
+                      <>
+                        Launch Dashboard
+                        <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </form>
+
+              <div className="mt-16 text-center space-y-6">
+                 <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">New Institution?</p>
+                 <div className="flex items-center justify-center gap-4">
+                    <Link href="/register" className="px-10 py-5 bg-white border-2 border-slate-100 rounded-[24px] font-black text-xs uppercase tracking-widest text-slate-900 hover:bg-slate-50 transition-all shadow-sm">Initialize Setup</Link>
+                    <Link href="/demo" className="text-xs font-black text-indigo-600 uppercase tracking-widest hover:underline">Request Live Demo</Link>
+                 </div>
               </div>
-            </div>
+           </div>
 
-            <div className="space-y-1.5">
-              <div className="flex justify-between items-center ml-1">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Password</label>
-                <Link href="/forgot-password" className="text-[9px] font-black text-indigo-600 uppercase hover:underline">Forgot?</Link>
-              </div>
-              <div className="relative">
-                <input 
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••••••"
-                  required
-                  className="w-full px-5 py-4 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold transition-all"
-                />
-                <button 
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600 transition-colors"
-                >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between pt-2">
-              <label className="flex items-center gap-2 cursor-pointer group">
-                <input type="checkbox" className="w-4 h-4 rounded border-slate-200 text-indigo-600 focus:ring-indigo-500" />
-                <span className="text-xs font-bold text-slate-500 group-hover:text-slate-900 transition-colors">Keep me signed in</span>
-              </label>
-              
-              <button 
-                type="submit"
-                disabled={loading}
-                className="bg-slate-900 text-white px-10 py-4 rounded-2xl font-black text-sm shadow-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? "Signing in..." : "Sign In"}
-                {!loading && <ArrowRight className="w-4 h-4" />}
-              </button>
-            </div>
-          </form>
-
-          <p className="mt-12 text-center text-xs text-slate-400 font-medium">
-            New Institution? <Link href="/register" className="text-indigo-600 font-black hover:underline tracking-tight">Register School Account</Link>
-          </p>
+           {/* Foreground Floating Elements */}
+           <div className="absolute top-12 right-12 text-slate-50 pointer-events-none opacity-5">
+              <Globe className="w-48 h-48 rotate-12" />
+           </div>
         </div>
       </div>
     </div>

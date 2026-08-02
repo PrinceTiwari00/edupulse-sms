@@ -5,6 +5,7 @@ import Sidebar from '@/components/layout/sidebar';
 import { UserRole } from '@prisma/client';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
+import { Bell } from 'lucide-react';
 
 export default function DashboardLayout({
   children,
@@ -32,28 +33,36 @@ export default function DashboardLayout({
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-10 no-print">
-          <div className="flex items-center gap-4">
-            <h2 className="text-xl font-black text-slate-900 tracking-tight">
-              Welcome back, {userName}
-            </h2>
+        <header className="h-24 bg-white border-b border-slate-100 flex items-center justify-between px-12 no-print shadow-sm sticky top-0 z-30">
+          <div className="flex items-center gap-6">
+            <div>
+                <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-none">
+                Welcome back, {userName}
+                </h2>
+                <p className="text-[11px] font-black text-indigo-600 uppercase tracking-widest mt-1">Platform Control Center</p>
+            </div>
           </div>
           
-          <div className="flex items-center gap-4">
-            <button className="relative p-2 text-slate-400 hover:text-slate-600">
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
-              {/* Bell Icon would go here */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <div className="flex items-center gap-6">
+            <button className="relative p-3 text-slate-400 hover:text-indigo-600 bg-slate-50 hover:bg-indigo-50 rounded-2xl transition-all group">
+              <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
+              <Bell className="w-6 h-6" />
             </button>
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xs">
-              AD
+            <div className="flex items-center gap-4 pl-6 border-l border-slate-100">
+                <div className="text-right">
+                    <p className="text-xs font-black text-slate-900 leading-none mb-0.5">{userName}</p>
+                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{role.replace('_', ' ')}</p>
+                </div>
+                <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-indigo-100">
+                {userName.substring(0, 2).toUpperCase()}
+                </div>
             </div>
           </div>
         </header>
 
         {/* Scrollable Content Area */}
-        <main className="flex-1 overflow-y-auto p-8">
-          <div className="max-w-7xl mx-auto">
+        <main className="flex-1 overflow-y-auto p-12 bg-[#fcfdff]">
+          <div className="max-w-[1600px] mx-auto">
             {children}
           </div>
         </main>
