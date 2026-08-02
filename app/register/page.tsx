@@ -1,96 +1,87 @@
 "use client";
 
 import React from 'react';
-import { School, CheckCircle2, ShieldCheck, ArrowRight } from 'lucide-react';
+import { School, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function RegisterSchoolPage() {
   return (
-    <div className="min-h-screen bg-[#e5e7eb] flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Image Overlay */}
-      <div 
-        className="absolute inset-0 z-0 opacity-20"
-        style={{ 
-          backgroundImage: "url('/login-bg.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-      />
-
-      <div className="relative z-10 w-full max-w-[850px] bg-white rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row min-h-[500px]">
-        {/* Left Section - Unified Dynamic Theme */}
-        <div className="w-full md:w-[40%] bg-slate-50 p-8 flex flex-col items-center justify-between border-r border-slate-100 text-center">
-          <div className="space-y-4">
-            <p className="text-sm font-bold text-slate-700 uppercase tracking-wider">Institution Setup</p>
-            <div className="bg-[#28a745] text-white px-6 py-2 rounded font-black text-xs uppercase tracking-widest inline-block">
-              School Registration
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
+      <div className="w-full max-w-2xl bg-white rounded-[32px] border border-slate-100 shadow-2xl overflow-hidden flex flex-col md:flex-row">
+        {/* Left Side - Info */}
+        <div className="w-full md:w-[40%] bg-indigo-600 p-8 text-white flex flex-col justify-between">
+          <div>
+            <div className="bg-white/20 w-12 h-12 rounded-xl flex items-center justify-center mb-6">
+              <School className="w-7 h-7 text-white" />
+            </div>
+            <h2 className="text-2xl font-bold leading-tight mb-4">Onboard your Institution</h2>
+            <p className="text-indigo-100 text-sm leading-relaxed mb-8">
+              Join hundreds of schools managing their operations with EduPulse. 
+            </p>
+            
+            <div className="space-y-4">
+              {[
+                "Strict Data Isolation",
+                "Custom Subdomains",
+                "Global Analytics"
+              ].map((text) => (
+                <div key={text} className="flex items-center gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-indigo-300 shrink-0" />
+                  <span className="text-xs font-medium text-indigo-50">{text}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="flex flex-col items-center py-6">
-            <div className="flex items-center gap-2 mb-1">
-              <div className="w-12 h-12 bg-white rounded-full border-4 border-[#28a745] flex items-center justify-center shrink-0">
-                <span className="text-[#004d40] font-black text-xl italic">D</span>
-              </div>
-              <div className="text-left">
-                <h2 className="text-[#004d40] font-black text-2xl leading-none">DYNAMIC</h2>
-                <p className="text-[#28a745] font-bold text-xs tracking-widest leading-none">ACADEMIC ERP</p>
-              </div>
+          <div className="mt-8 p-4 bg-white/10 rounded-2xl border border-white/10">
+            <div className="flex items-center gap-3">
+              <ShieldCheck className="w-5 h-5 text-indigo-300" />
+              <p className="text-[10px] font-bold uppercase tracking-widest text-indigo-200">Super Admin Approval Required</p>
             </div>
-          </div>
-
-          <div className="w-full space-y-3 text-left px-4">
-            {[
-              "Multi-tenant isolation",
-              "Custom school subdomain",
-              "Academic management suite"
-            ].map((text) => (
-              <div key={text} className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#28a745]" />
-                <span className="text-[11px] font-bold text-slate-500 uppercase">{text}</span>
-              </div>
-            ))}
-          </div>
-
-          <div className="w-full pt-8 flex gap-2">
-            <div className="flex-1 h-1.5 bg-[#17a2b8] rounded-full opacity-30"></div>
-            <div className="flex-1 h-1.5 bg-[#cc9a52] rounded-full opacity-30"></div>
           </div>
         </div>
 
-        {/* Right Section - Form */}
-        <div className="w-full md:w-[60%] p-12 bg-white flex flex-col justify-center">
-          <div className="mb-10">
-            <h1 className="text-3xl font-bold text-[#2d5a4c]">Register School</h1>
-            <p className="text-slate-500 mt-2 text-sm font-medium">Create your institutional account to get started.</p>
+        {/* Right Side - Form */}
+        <div className="w-full md:w-[60%] p-10">
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-slate-900">Request Account</h1>
+            <p className="text-slate-500 text-sm mt-1">Our team will verify your school details shortly.</p>
           </div>
 
-          <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
             <div className="space-y-1.5">
-              <input type="text" placeholder="School Name" className="w-full px-5 py-3.5 bg-[#eef2f7] border-none rounded text-sm focus:ring-2 focus:ring-[#2d5a4c] outline-none text-slate-700 font-medium" />
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">School Name</label>
+              <input type="text" placeholder="Greenwood International" className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
             </div>
 
-            <div className="flex items-center gap-3">
-              <input type="text" placeholder="Subdomain" className="flex-1 px-5 py-3.5 bg-[#eef2f7] border-none rounded text-sm focus:ring-2 focus:ring-[#2d5a4c] outline-none text-slate-700 font-medium" />
-              <span className="text-xs font-bold text-slate-400">.edupulse.com</span>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Preferred Subdomain</label>
+              <div className="flex items-center">
+                <input type="text" placeholder="greenwood" className="flex-1 px-4 py-3 border border-slate-100 rounded-l-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
+                <span className="bg-slate-100 border border-l-0 border-slate-100 px-4 py-3 rounded-r-2xl text-xs font-bold text-slate-500">.edupulse.com</span>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <input type="email" placeholder="Contact Email" className="px-5 py-3.5 bg-[#eef2f7] border-none rounded text-sm focus:ring-2 focus:ring-[#2d5a4c] outline-none text-slate-700 font-medium" />
-              <input type="tel" placeholder="Phone Number" className="px-5 py-3.5 bg-[#eef2f7] border-none rounded text-sm focus:ring-2 focus:ring-[#2d5a4c] outline-none text-slate-700 font-medium" />
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Contact Email</label>
+                <input type="email" placeholder="admin@school.edu" className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
+              </div>
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Phone Number</label>
+                <input type="tel" placeholder="+1..." className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
+              </div>
             </div>
 
-            <button className="w-full bg-[#004d40] hover:bg-[#00332c] text-white py-4 rounded font-black text-sm transition-all shadow-lg flex items-center justify-center gap-2 group mt-4">
+            <button className="w-full mt-6 bg-slate-900 text-white py-4 rounded-2xl font-black text-sm shadow-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2 group">
               Submit Request
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
-
-            <div className="pt-6 text-center">
-              <p className="text-xs text-slate-400 font-medium">
-                Already have an account? <Link href="/login" className="text-[#004d40] font-black hover:underline tracking-tight">Sign In here</Link>
-              </p>
-            </div>
           </form>
+
+          <p className="mt-8 text-center text-xs text-slate-400 font-medium">
+            Already have an account? <Link href="/login" className="text-indigo-600 font-black hover:underline tracking-tight">Login here</Link>
+          </p>
         </div>
       </div>
     </div>
