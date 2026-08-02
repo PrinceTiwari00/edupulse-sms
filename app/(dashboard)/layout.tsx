@@ -45,18 +45,18 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
         <header className="h-24 bg-white border-b border-slate-200 flex items-center justify-between px-6 lg:px-12 no-print shadow-sm sticky top-0 z-30">
-          <div className="flex items-center gap-4 lg:gap-6">
+          <div className="flex items-center gap-4 lg:gap-8">
             <button 
               onClick={() => setIsSidebarOpen(true)}
-              className="lg:hidden p-3 bg-slate-50 rounded-2xl text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-all"
+              className="lg:hidden p-3.5 bg-slate-50 rounded-2xl text-slate-900 hover:bg-indigo-50 hover:text-indigo-600 transition-all border border-slate-100"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-7 h-7" />
             </button>
             <div className="min-w-0">
-                <h2 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tight leading-none truncate">
+                <h2 className="text-xl lg:text-3xl font-black text-slate-900 tracking-tighter leading-none truncate">
                 Welcome, {userName}
                 </h2>
-                <p className="text-[10px] lg:text-xs font-black text-indigo-700 uppercase tracking-widest mt-1">Platform Control Center</p>
+                <p className="text-[11px] lg:text-xs font-black text-indigo-700 uppercase tracking-widest mt-1.5">Platform Control Center</p>
             </div>
           </div>
           
