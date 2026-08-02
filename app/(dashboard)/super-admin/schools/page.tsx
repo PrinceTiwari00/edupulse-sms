@@ -204,7 +204,7 @@ export default function SuperAdminSchoolsPage() {
       </div>
 
       {/* School List Table */}
-      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl min-h-[400px] pb-32">
+      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl min-h-[400px] pb-60">
         <div className="p-10 border-b border-slate-50 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
           <div className="relative flex-1 min-w-[400px]">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -337,15 +337,15 @@ export default function SuperAdminSchoolsPage() {
                     {openMenuId === school.id && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setOpenMenuId(null)} />
-                        <div className="absolute right-12 top-24 w-72 bg-white border border-slate-100 rounded-[32px] shadow-[0_32px_80px_rgba(0,0,0,0.15)] z-50 overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-top-4 duration-300 ring-4 ring-slate-50/50">
-                          <div className="p-4 space-y-2">
-                            <button onClick={() => { setEditingSchool(school); setOpenMenuId(null); }} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
+                        <div className="absolute right-12 top-0 w-72 bg-white border border-slate-100 rounded-[32px] shadow-[0_32px_80px_rgba(0,0,0,0.15)] z-[60] overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-right-4 duration-300 ring-4 ring-slate-50/50">
+                          <div className="p-4 space-y-2 text-left">
+                            <button onClick={() => { setEditingSchool(school); setOpenMenuId(null); }} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-[20px] transition-all">
                                <Edit className="w-5 h-5 opacity-40" /> Edit Institution
                             </button>
-                            <button onClick={() => handleToggleStatus(school.id, school.isActive)} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
+                            <button onClick={() => handleToggleStatus(school.id, school.isActive)} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-[20px] transition-all">
                                <Zap className="w-5 h-5 opacity-40" /> {school.isActive ? 'Suspend Access' : 'Activate Access'}
                             </button>
-                            <Link href="/super-admin/billing" className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
+                            <Link href="/super-admin/billing" className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-[20px] transition-all">
                                <CreditCard className="w-5 h-5 opacity-40" /> Revenue Terminal
                             </Link>
                             <div className="h-[2px] bg-slate-50 mx-4 my-2"></div>
