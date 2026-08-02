@@ -197,14 +197,14 @@ export default function SuperAdminSchoolsPage() {
            </div>
            <div className="z-10">
               <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1 leading-none">Total Revenue</p>
-              <p className="text-2xl font-black text-white tracking-tighter leading-none mt-2 uppercase">रू {revenue.toLocaleString()}</p>
+              <p className="text-3xl font-black text-white tracking-tighter leading-none mt-2 uppercase">रू {revenue.toLocaleString()}</p>
            </div>
            <div className="absolute -right-8 -top-8 w-24 h-24 bg-indigo-600/10 rounded-full blur-2xl"></div>
         </div>
       </div>
 
       {/* School List Table */}
-      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl overflow-hidden pb-32">
+      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl min-h-[400px] pb-32">
         <div className="p-10 border-b border-slate-50 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
           <div className="relative flex-1 min-w-[400px]">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
