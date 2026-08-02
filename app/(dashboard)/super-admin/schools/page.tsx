@@ -163,7 +163,7 @@ export default function SuperAdminSchoolsPage() {
       )}
 
       {/* Quick Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
            <div className="p-5 bg-indigo-50 rounded-[24px] group-hover:scale-110 transition-transform">
               <School className="w-8 h-8 text-indigo-600" />
@@ -191,20 +191,10 @@ export default function SuperAdminSchoolsPage() {
               <p className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{schools.filter(s => s.plan && s.plan !== 'NONE').length}</p>
            </div>
         </div>
-        <div className="bg-slate-950 p-8 rounded-[40px] text-white shadow-2xl flex items-center gap-8 group hover:bg-slate-900 transition-all relative overflow-hidden">
-           <div className="p-5 bg-white/10 rounded-[24px] group-hover:scale-110 transition-transform z-10">
-              <CreditCard className="w-8 h-8 text-indigo-400" />
-           </div>
-           <div className="z-10">
-              <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1 leading-none">Total Revenue</p>
-              <p className="text-3xl font-black text-white tracking-tighter leading-none mt-2 uppercase">रू {revenue.toLocaleString()}</p>
-           </div>
-           <div className="absolute -right-8 -top-8 w-24 h-24 bg-indigo-600/10 rounded-full blur-2xl"></div>
-        </div>
       </div>
 
       {/* School List Table */}
-      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl min-h-[400px] pb-60">
+      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl min-h-[400px] pb-96">
         <div className="p-10 border-b border-slate-50 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
           <div className="relative flex-1 min-w-[400px]">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -337,12 +327,12 @@ export default function SuperAdminSchoolsPage() {
                     {openMenuId === school.id && (
                       <>
                         <div className="fixed inset-0 z-40" onClick={() => setOpenMenuId(null)} />
-                        <div className="absolute right-12 top-0 w-72 bg-white border border-slate-100 rounded-[32px] shadow-[0_32px_80px_rgba(0,0,0,0.15)] z-[60] overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-right-4 duration-300 ring-4 ring-slate-50/50">
+                        <div className="absolute right-12 top-0 w-72 bg-white border border-slate-100 rounded-[32px] shadow-[0_32px_80px_rgba(0,0,0,0.15)] z-[99] overflow-hidden animate-in fade-in zoom-in-95 slide-in-from-right-4 duration-300 ring-4 ring-slate-50/50">
                           <div className="p-4 space-y-2 text-left">
-                            <button onClick={() => { setEditingSchool(school); setOpenMenuId(null); }} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-[20px] transition-all">
+                            <button onClick={() => { setEditingSchool(school); setOpenMenuId(null); }} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
                                <Edit className="w-5 h-5 opacity-40" /> Edit Institution
                             </button>
-                            <button onClick={() => handleToggleStatus(school.id, school.isActive)} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-[20px] transition-all">
+                            <button onClick={() => handleToggleStatus(school.id, school.isActive)} className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-[20px] transition-all">
                                <Zap className="w-5 h-5 opacity-40" /> {school.isActive ? 'Suspend Access' : 'Activate Access'}
                             </button>
                             <Link href="/super-admin/billing" className="w-full flex items-center gap-4 px-6 py-4 text-xs font-black uppercase tracking-widest text-slate-700 hover:bg-indigo-50 hover:text-indigo-600 rounded-[20px] transition-all">
