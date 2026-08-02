@@ -1,10 +1,35 @@
 "use client";
 
-import React from 'react';
-import { School, ArrowRight, CheckCircle2, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { School, ArrowRight, CheckCircle2, ShieldCheck, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
+import { createSchoolRequest } from '@/actions/school';
 
 export default function RegisterSchoolPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    subdomain: '',
+    email: '',
+    phone: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState({ type: '', text: '' });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ type: '', text: '' });
+
+    const res = await createSchoolRequest(formData);
+    
+    if (res.success) {
+      setMessage({ type: 'success', text: 'Registration request submitted! Our team will contact you shortly.' });
+      setFormData({ name: '', subdomain: '', email: '', phone: '' });
+    } else {
+      setMessage({ type: 'error', text: res.error || 'Something went wrong.' });
+    }
+    setLoading(false);
+  };
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
       <div className="w-full max-w-2xl bg-white rounded-[32px] border border-slate-100 shadow-2xl overflow-hidden flex flex-col md:flex-row">
@@ -48,16 +73,39 @@ export default function RegisterSchoolPage() {
             <p className="text-slate-500 text-sm mt-1">Our team will verify your school details shortly.</p>
           </div>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-4" onSubmit={handleSubmit}>
+            {message.text && (
+              <div className={`p-4 rounded-2xl flex items-center gap-3 text-xs font-bold ${
+                message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-red-50 text-red-700 border border-red-100'
+              }`}>
+                {message.type === 'success' ? <CheckCircle2 className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+                {message.text}
+              </div>
+            )}
+
             <div className="space-y-1.5">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">School Name</label>
-              <input type="text" placeholder="Greenwood International" className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
+              <input 
+                type="text" 
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                placeholder="Greenwood International" 
+                className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" 
+              />
             </div>
 
             <div className="space-y-1.5">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Preferred Subdomain</label>
               <div className="flex items-center">
-                <input type="text" placeholder="greenwood" className="flex-1 px-4 py-3 border border-slate-100 rounded-l-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
+                <input 
+                  type="text" 
+                  required
+                  value={formData.subdomain}
+                  onChange={(e) => setFormData({...formData, subdomain: e.target.value})}
+                  placeholder="greenwood" 
+                  className="flex-1 px-4 py-3 border border-slate-100 rounded-l-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" 
+                />
                 <span className="bg-slate-100 border border-l-0 border-slate-100 px-4 py-3 rounded-r-2xl text-xs font-bold text-slate-500">.edupulse.com</span>
               </div>
             </div>
@@ -65,17 +113,35 @@ export default function RegisterSchoolPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Contact Email</label>
-                <input type="email" placeholder="admin@school.edu" className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
+                <input 
+                  type="email" 
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  placeholder="admin@school.edu" 
+                  className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" 
+                />
               </div>
               <div className="space-y-1.5">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Phone Number</label>
-                <input type="tel" placeholder="+1..." className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" />
+                <input 
+                  type="tel" 
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  placeholder="+1..." 
+                  className="w-full px-4 py-3 border border-slate-100 rounded-2xl bg-slate-50 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-semibold" 
+                />
               </div>
             </div>
 
-            <button className="w-full mt-6 bg-slate-900 text-white py-4 rounded-2xl font-black text-sm shadow-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2 group">
-              Submit Request
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <button 
+              type="submit"
+              disabled={loading}
+              className="w-full mt-6 bg-slate-900 text-white py-4 rounded-2xl font-black text-sm shadow-xl hover:bg-slate-800 transition-all flex items-center justify-center gap-2 group disabled:opacity-50"
+            >
+              {loading ? 'Submitting...' : 'Submit Request'}
+              {!loading && <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />}
             </button>
           </form>
 

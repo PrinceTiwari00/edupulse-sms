@@ -3,31 +3,39 @@
 import React from 'react';
 import Sidebar from '@/components/layout/sidebar';
 import { UserRole } from '@prisma/client';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // In a real app, we would fetch the user from the session
-  // const session = await getServerSession(authOptions);
-  // const role = session?.user?.role as UserRole;
+  const { data: session, status } = useSession();
   
-  // Mocking role for layout preview
-  const mockRole: UserRole = 'SCHOOL_ADMIN';
+  if (status === 'loading') {
+    return <div className="h-screen w-full flex items-center justify-center bg-slate-50 font-bold text-slate-400">Loading EduPulse...</div>;
+  }
+
+  if (status === 'unauthenticated' || !session) {
+    redirect('/login');
+  }
+
+  const role = session.user.role as UserRole;
+  const userName = session.user.firstName || 'User';
 
   return (
     <div className="flex h-screen bg-slate-50">
       {/* Sidebar - Fixed on desktop */}
-      <Sidebar role={mockRole} />
+      <Sidebar role={role} />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="h-16 bg-white border-b flex items-center justify-between px-8">
+        <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-10 no-print">
           <div className="flex items-center gap-4">
-            <h2 className="text-lg font-semibold text-slate-800">
-              Welcome back, Admin
+            <h2 className="text-xl font-black text-slate-900 tracking-tight">
+              Welcome back, {userName}
             </h2>
           </div>
           

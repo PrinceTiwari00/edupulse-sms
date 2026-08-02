@@ -13,13 +13,13 @@ Parameters:
     NoEcho: true
 
 Resources:
-  # --- AppRegistry Association (Provided by User) ---
-  AppRegistryApplicationStackAssociation:
-    Type: AWS::ServiceCatalogAppRegistry::ResourceAssociation
-    Properties:
-      Application: arn:aws:servicecatalog:eu-north-1:971441628788:/applications/0d48esv246sf3ivtnh5y69e312
-      Resource: !Ref AWS::StackId
-      ResourceType: CFN_STACK
+  # --- AppRegistry Association (Requires same region as Application) ---
+  # AppRegistryApplicationStackAssociation:
+  #   Type: AWS::ServiceCatalogAppRegistry::ResourceAssociation
+  #   Properties:
+  #     Application: arn:aws:servicecatalog:eu-north-1:971441628788:/applications/0d48esv246sf3ivtnh5y69e312
+  #     Resource: !Ref AWS::StackId
+  #     ResourceType: CFN_STACK
 
   # --- Database (RDS PostgreSQL) ---
   EduPulseDB:
