@@ -194,7 +194,7 @@ export default function SuperAdminSchoolsPage() {
       </div>
 
       {/* School List Table */}
-      <div className="bg-white rounded-[48px] border border-slate-200 shadow-xl min-h-[400px] pb-96">
+      <div className="bg-white rounded-[48px] border border-slate-200 shadow-xl min-h-[400px] pb-96 overflow-hidden">
         <div className="p-10 border-b border-slate-100 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
           <div className="relative flex-1 min-w-[400px]">
             <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
@@ -211,11 +211,11 @@ export default function SuperAdminSchoolsPage() {
           </div>
         </div>
 
-        <div className="overflow-visible">
-          <table className="w-full text-left border-collapse">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse min-w-[1200px]">
             <thead>
               <tr className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] border-b border-slate-100">
-                <th className="px-10 py-8 w-16 text-center">
+                <th className="px-6 py-8 w-16 text-center">
                    <input 
                     type="checkbox" 
                     className="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
