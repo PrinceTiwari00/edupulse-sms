@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { School, ArrowRight, ShieldCheck, Zap, Globe, Sparkles, Loader2, Lock, User } from 'lucide-react';
 import Link from 'next/link';
@@ -12,6 +12,12 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const { status } = useSession();
+
+  // Redirect if already authenticated
+  if (status === 'authenticated') {
+    router.push('/');
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

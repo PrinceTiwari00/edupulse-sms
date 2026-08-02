@@ -2,8 +2,37 @@
 
 import Link from 'next/link';
 import { School, ArrowRight, ShieldCheck, Zap, BarChart3 } from 'lucide-react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function LandingPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user) {
+      const role = (session.user as any).role;
+      if (role === 'SUPER_ADMIN') {
+        router.push('/super-admin');
+      } else if (role === 'SCHOOL_ADMIN') {
+        router.push('/admin');
+      } else if (role === 'TEACHER') {
+        router.push('/teacher');
+      } else if (role === 'STUDENT') {
+        router.push('/student');
+      } else if (role === 'PARENT') {
+        router.push('/parent');
+      } else if (role === 'ACCOUNTANT') {
+        router.push('/accountant');
+      }
+    }
+  }, [status, session, router]);
+
+  if (status === 'loading') {
+    return <div className="min-h-screen flex items-center justify-center font-black text-slate-300 uppercase tracking-widest animate-pulse">Initializing Platform...</div>;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Navbar */}
