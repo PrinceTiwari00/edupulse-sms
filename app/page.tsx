@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { School, ArrowRight, ShieldCheck, Zap, Users, BarChart3 } from 'lucide-react';
+import { School, ArrowRight, ShieldCheck, Zap, BarChart3 } from 'lucide-react';
 
 export default function LandingPage() {
   return (
@@ -17,9 +17,9 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-4">
             <Link href="/login" className="text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors">
-              Sign In
+              Login
             </Link>
-            <Link href="/super-admin" className="bg-slate-900 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
+            <Link href="/register" className="bg-slate-900 text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">
               Get Started
             </Link>
           </div>
@@ -45,12 +45,12 @@ export default function LandingPage() {
               EduPulse is the ultimate multi-tenant SaaS platform for modern educational institutions. From admissions to exams, we've got you covered.
             </p>
             <div className="flex flex-wrap justify-center gap-6">
-              <Link href="/super-admin" className="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center gap-2 group">
-                Super Admin Portal
+              <Link href="/register" className="bg-indigo-600 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 flex items-center gap-2 group">
+                Get Started
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/admin" className="bg-white border-2 border-slate-200 text-slate-900 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-slate-50 transition-all">
-                School Admin Demo
+              <Link href="/login" className="bg-white border-2 border-slate-200 text-slate-900 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-slate-50 transition-all">
+                Login
               </Link>
             </div>
           </div>
