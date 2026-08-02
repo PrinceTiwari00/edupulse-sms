@@ -15,9 +15,9 @@ export async function getPlatformStats() {
     ]);
 
     // Calculate revenue (sum of paid invoices)
-    const revenueResult = await prisma.invoice.aggregate({
+    const revenueResult = await prisma.subscriptionInvoice.aggregate({
       where: { status: "PAID" },
-      _sum: { amount: true },
+      _sum: { totalAmount: true },
     });
 
     return {
@@ -27,7 +27,7 @@ export async function getPlatformStats() {
         totalStudents,
         totalStaff,
         activeTenants,
-        totalRevenue: Number(revenueResult._sum.amount || 0),
+        totalRevenue: Number(revenueResult._sum.totalAmount || 0),
         totalWalletBalance: Number(walletResult._sum.walletBalance || 0)
       }
     };
@@ -43,21 +43,33 @@ export async function getSubscriptionAnalytics() {
       _count: { _all: true },
     });
 
-    const recentInvoices = await prisma.invoice.findMany({
+    const recentInvoices = await prisma.subscriptionInvoice.findMany({
       take: 10,
       include: {
         school: {
-          select: { name: true }
-        }
+          select: { name: true, subdomain: true }
+        },
+        payments: true
       },
       orderBy: { createdAt: 'desc' }
+    });
+
+    const recentPayments = await prisma.subscriptionPayment.findMany({
+      take: 20,
+      include: {
+        invoice: {
+          include: { school: { select: { name: true } } }
+        }
+      },
+      orderBy: { date: 'desc' }
     });
 
     return {
       success: true,
       data: {
         plansCount: plansCount.map(p => ({ name: p.plan, count: p._count._all })),
-        recentInvoices
+        recentInvoices,
+        recentPayments
       }
     };
   } catch (error: any) {

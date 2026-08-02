@@ -272,7 +272,7 @@ export async function getSaaSInvoiceById(id: string) {
     const invoice = await prisma.subscriptionInvoice.findUnique({
       where: { id },
       include: {
-        school: { select: { name: true, address: true, email: true, phone: true } },
+        school: { select: { name: true, address: true, email: true, phone: true, subdomain: true, panNumber: true, vatNumber: true } },
         payments: true,
         promoCode: true
       }

@@ -11,7 +11,12 @@ import {
   Filter,
   Download,
   MoreVertical,
-  CheckCircle2
+  CheckCircle2,
+  Printer,
+  History,
+  TrendingUp,
+  Banknote,
+  FileText
 } from 'lucide-react';
 import Link from 'next/link';
 import { getSubscriptionAnalytics } from '@/actions/super-admin';
@@ -19,6 +24,7 @@ import { getSubscriptionAnalytics } from '@/actions/super-admin';
 export default function SubscriptionAnalyticsPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'invoices' | 'payments'>('invoices');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,84 +35,203 @@ export default function SubscriptionAnalyticsPage() {
     fetchData();
   }, []);
 
-  if (loading) return <div className="p-10 font-bold text-slate-400">Fetching billing data...</div>;
+  if (loading) return <div className="p-10 font-black text-slate-400 uppercase animate-pulse">Synchronizing platform revenue data...</div>;
 
   const totalSchools = data?.plansCount?.reduce((acc: number, p: any) => acc + p.count, 0) || 0;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-20">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Revenue & Billing</h1>
+          <h1 className="text-3xl font-black text-slate-900 tracking-tight uppercase">Revenue & Billing</h1>
           <p className="text-slate-500 font-medium">Track platform monetization and institutional subscriptions.</p>
         </div>
+        <div className="flex gap-3 no-print">
+            <button className="flex items-center gap-2 bg-white border border-slate-100 px-6 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm">
+                <Download className="w-4 h-4" />
+                Export Ledger
+            </button>
+            <Link href="/super-admin/billing" className="flex items-center gap-2 bg-slate-900 text-white px-8 py-3 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all shadow-xl">
+                <Zap className="w-4 h-4 text-indigo-400" />
+                Billing Terminal
+            </Link>
+        </div>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+         <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm">
+            <div className="p-3 bg-indigo-50 rounded-2xl w-fit mb-4">
+               <TrendingUp className="w-6 h-6 text-indigo-600" />
+            </div>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Growth Rate</p>
+            <h3 className="text-2xl font-black text-slate-900 mt-1">+12.4%</h3>
+            <p className="text-[9px] text-green-600 font-bold mt-1 uppercase">↑ from previous month</p>
+         </div>
+         <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm">
+            <div className="p-3 bg-green-50 rounded-2xl w-fit mb-4">
+               <ShieldCheck className="w-6 h-6 text-green-600" />
+            </div>
+            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Licenses</p>
+            <h3 className="text-2xl font-black text-slate-900 mt-1">{totalSchools}</h3>
+            <p className="text-[9px] text-slate-400 font-bold mt-1 uppercase">Schools Managed</p>
+         </div>
+         <div className="bg-slate-900 p-6 rounded-[32px] text-white shadow-xl relative overflow-hidden">
+            <div className="relative z-10">
+               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4">Total Realized Revenue</p>
+               <h3 className="text-3xl font-black tracking-tighter">NPR {data?.recentPayments?.reduce((acc: number, p: any) => acc + Number(p.amount), 0).toLocaleString()}</h3>
+            </div>
+            <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl"></div>
+         </div>
+         <div className="bg-indigo-600 p-6 rounded-[32px] text-white shadow-xl">
+            <p className="text-[10px] font-black text-indigo-200 uppercase tracking-widest mb-4">Average LTV</p>
+            <h3 className="text-3xl font-black tracking-tighter">रू {(totalSchools > 0 ? (data?.recentPayments?.reduce((acc: number, p: any) => acc + Number(p.amount), 0) / totalSchools) : 0).toLocaleString()}</h3>
+         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white rounded-[40px] border border-slate-100 shadow-sm overflow-hidden">
-            <div className="p-8 border-b border-slate-50 flex flex-wrap gap-4 items-center justify-between bg-slate-50/30">
-              <h3 className="text-xl font-black text-slate-900 tracking-tight">Recent Invoices</h3>
+            <div className="p-8 border-b border-slate-50 flex items-center justify-between bg-slate-50/30">
+              <div className="flex gap-8">
+                  <button 
+                    onClick={() => setActiveTab('invoices')}
+                    className={`text-sm font-black uppercase tracking-widest pb-2 transition-all border-b-2 ${activeTab === 'invoices' ? 'text-indigo-600 border-indigo-600' : 'text-slate-400 border-transparent hover:text-slate-600'}`}
+                  >
+                    Recent Invoices
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab('payments')}
+                    className={`text-sm font-black uppercase tracking-widest pb-2 transition-all border-b-2 ${activeTab === 'payments' ? 'text-indigo-600 border-indigo-600' : 'text-slate-400 border-transparent hover:text-slate-600'}`}
+                  >
+                    Payment Logs
+                  </button>
+              </div>
+              <div className="relative w-48 no-print">
+                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                 <input type="text" placeholder="Search logs..." className="w-full pl-9 pr-4 py-2 bg-white border border-slate-100 rounded-xl text-[10px] font-black uppercase focus:ring-2 focus:ring-indigo-500 outline-none" />
+              </div>
             </div>
             
             <div className="overflow-x-auto">
-              <table className="w-full text-left">
-                <thead>
-                  <tr className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50">
-                    <th className="px-8 py-5">Institution</th>
-                    <th className="px-8 py-5">Invoice #</th>
-                    <th className="px-8 py-5">Amount</th>
-                    <th className="px-8 py-5">Status</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {data?.recentInvoices?.length === 0 ? (
-                    <tr>
-                      <td colSpan={4} className="px-8 py-20 text-center text-slate-400 font-bold uppercase tracking-widest">No active invoices found</td>
+              {activeTab === 'invoices' ? (
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50">
+                      <th className="px-8 py-5">Institution</th>
+                      <th className="px-8 py-5">Invoice #</th>
+                      <th className="px-8 py-5 text-right">Net Amount</th>
+                      <th className="px-8 py-5 text-center">Status</th>
+                      <th className="px-8 py-5"></th>
                     </tr>
-                  ) : (
-                    data?.recentInvoices?.map((bill: any) => (
-                      <tr key={bill.id} className="group hover:bg-slate-50/50 transition-colors">
-                        <td className="px-8 py-6 font-bold text-slate-900 text-sm tracking-tight">{bill.school.name}</td>
-                        <td className="px-8 py-6 font-mono text-xs text-slate-400 font-bold uppercase tracking-widest">{bill.invoiceNumber}</td>
-                        <td className="px-8 py-6 font-black text-slate-900 text-sm">${bill.amount}</td>
-                        <td className="px-8 py-6">
-                          <span className={`px-3 py-1 rounded-xl text-[10px] font-black uppercase ${
-                            bill.status === 'PAID' ? 'bg-green-50 text-green-600' : 'bg-amber-50 text-amber-600'
-                          }`}>
-                            {bill.status}
-                          </span>
-                        </td>
+                  </thead>
+                  <tbody className="divide-y divide-slate-50">
+                    {data?.recentInvoices?.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="px-8 py-20 text-center text-slate-400 font-bold uppercase tracking-widest italic">No subscription invoices generated yet.</td>
                       </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                    ) : (
+                      data?.recentInvoices?.map((bill: any) => (
+                        <tr key={bill.id} className="group hover:bg-slate-50/50 transition-colors">
+                          <td className="px-8 py-6">
+                             <p className="font-black text-slate-900 text-sm tracking-tight">{bill.school.name}</p>
+                             <p className="text-[9px] font-bold text-slate-400 uppercase">{bill.school.subdomain}.edupulse.io</p>
+                          </td>
+                          <td className="px-8 py-6 font-mono text-[10px] text-indigo-600 font-black uppercase tracking-widest">{bill.invoiceNumber}</td>
+                          <td className="px-8 py-6 font-black text-slate-900 text-sm text-right">रू {Number(bill.totalAmount).toLocaleString()}</td>
+                          <td className="px-8 py-6 text-center">
+                            <span className={`px-3 py-1 rounded-xl text-[9px] font-black uppercase tracking-widest ${
+                              bill.status === 'PAID' ? 'bg-green-50 text-green-600' : 
+                              bill.status === 'PARTIAL' ? 'bg-blue-50 text-blue-600' : 'bg-red-50 text-red-600'
+                            }`}>
+                              {bill.status}
+                            </span>
+                          </td>
+                          <td className="px-8 py-6 text-right">
+                             <Link href={`/super-admin/billing/invoice/${bill.id}`} className="p-2 hover:bg-slate-100 rounded-xl transition-all inline-block">
+                                <Printer className="w-4 h-4 text-slate-400" />
+                             </Link>
+                          </td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              ) : (
+                <table className="w-full text-left">
+                  <thead>
+                    <tr className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50">
+                      <th className="px-8 py-5">Institution</th>
+                      <th className="px-8 py-5">Receipt #</th>
+                      <th className="px-8 py-5 text-right">Amount</th>
+                      <th className="px-8 py-5 text-center">Date</th>
+                      <th className="px-8 py-5">Mode</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-50">
+                    {data?.recentPayments?.length === 0 ? (
+                      <tr>
+                        <td colSpan={5} className="px-8 py-20 text-center text-slate-400 font-bold uppercase tracking-widest italic">No payments recorded in history.</td>
+                      </tr>
+                    ) : (
+                      data?.recentPayments?.map((payment: any) => (
+                        <tr key={payment.id} className="group hover:bg-slate-50/50 transition-colors">
+                          <td className="px-8 py-6 font-black text-slate-900 text-sm tracking-tight">{payment.invoice.school.name}</td>
+                          <td className="px-8 py-6 font-mono text-[10px] text-indigo-600 font-black uppercase tracking-widest">{payment.receiptNumber}</td>
+                          <td className="px-8 py-6 font-black text-green-600 text-sm text-right">रू {Number(payment.amount).toLocaleString()}</td>
+                          <td className="px-8 py-6 text-center text-xs font-bold text-slate-500">
+                             {new Date(payment.date).toLocaleDateString('en-GB')}
+                          </td>
+                          <td className="px-8 py-6 font-black text-slate-400 text-[9px] uppercase tracking-widest">{payment.mode}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
         </div>
 
         <div className="space-y-6">
-          <div className="bg-slate-900 rounded-[40px] p-8 text-white shadow-2xl">
-            <h4 className="text-xl font-black tracking-tight mb-8">Plan Distribution</h4>
-            <div className="space-y-6">
+          <div className="bg-slate-900 rounded-[40px] p-8 text-white shadow-2xl relative overflow-hidden">
+            <h4 className="text-xl font-black tracking-tight mb-8 relative z-10 uppercase">Plan Distribution</h4>
+            <div className="space-y-6 relative z-10">
               {data?.plansCount?.map((plan: any) => (
                 <div key={plan.name} className="space-y-2">
                   <div className="flex justify-between items-end">
                     <div>
-                       <p className="text-sm font-black text-white">{plan.name}</p>
+                       <p className="text-xs font-black text-indigo-200 uppercase tracking-widest">{plan.name}</p>
                     </div>
-                    <p className="text-xs font-black text-indigo-400 uppercase">{plan.count} Schools</p>
+                    <p className="text-[10px] font-black text-white uppercase">{plan.count} Schools</p>
                   </div>
                   <div className="w-full bg-white/5 h-2 rounded-full overflow-hidden">
                     <div 
-                      className="bg-indigo-600 h-full rounded-full" 
-                      style={{ width: `${(plan.count / totalSchools) * 100}%` }} 
+                      className="bg-indigo-500 h-full rounded-full transition-all duration-1000" 
+                      style={{ width: `${totalSchools > 0 ? (plan.count / totalSchools) * 100 : 0}%` }} 
                     />
                   </div>
                 </div>
               ))}
             </div>
+            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-indigo-500/5 to-transparent pointer-events-none"></div>
+          </div>
+
+          <div className="bg-indigo-50 p-8 rounded-[40px] border border-indigo-100">
+             <div className="flex items-center gap-3 mb-6">
+                <History className="w-5 h-5 text-indigo-600" />
+                <h4 className="text-xs font-black text-indigo-900 uppercase tracking-widest">Platform Insights</h4>
+             </div>
+             <div className="space-y-4">
+                <div className="flex justify-between items-center text-[10px] font-bold text-indigo-700 uppercase">
+                   <span>Avg. Payment Value</span>
+                   <span className="font-black">रू {(data?.recentPayments?.length > 0 ? (data.recentPayments.reduce((acc: any, p: any) => acc + Number(p.amount), 0) / data.recentPayments.length) : 0).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between items-center text-[10px] font-bold text-indigo-700 uppercase">
+                   <span>Paid Invoices</span>
+                   <span className="font-black">{data?.recentInvoices?.filter((i: any) => i.status === 'PAID').length} Invoices</span>
+                </div>
+             </div>
           </div>
         </div>
       </div>

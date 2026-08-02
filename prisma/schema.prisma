@@ -70,6 +70,8 @@ model School {
   email         String?  @unique
   logo          String?
   subdomain     String   @unique
+  panNumber     String?
+  vatNumber     String?
   isActive      Boolean  @default(false)
   status        SchoolStatus @default(PENDING)
   
