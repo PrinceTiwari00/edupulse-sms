@@ -40,11 +40,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6 selection:bg-indigo-100">
-      <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 bg-white rounded-[64px] border border-slate-100 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12)] overflow-hidden min-h-[800px]">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4 lg:p-6 selection:bg-indigo-100">
+      <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 bg-white rounded-3xl lg:rounded-[64px] border border-slate-100 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.12)] overflow-hidden min-h-[600px] lg:min-h-[800px]">
         
-        {/* Left Side - Hero / Branding */}
-        <div className="bg-slate-50 p-16 flex flex-col justify-between relative overflow-hidden group border-r border-slate-100">
+        {/* Left Side - Hero / Branding - Hidden on mobile */}
+        <div className="bg-slate-50 p-8 lg:p-16 lg:flex flex-col justify-between relative overflow-hidden group border-r border-slate-100 hidden">
           <div className="relative z-10">
             <Link href="/" className="flex items-center gap-4 text-slate-900 hover:opacity-80 transition-all">
                 <div className="bg-indigo-600 p-3 rounded-[24px] shadow-2xl shadow-indigo-200">
@@ -96,7 +96,7 @@ export default function LoginPage() {
         </div>
 
         {/* Right Side - Login Form */}
-        <div className="p-20 flex flex-col justify-center bg-white relative">
+        <div className="p-8 lg:p-20 flex flex-col justify-center bg-white relative">
            <div className="max-w-[440px] mx-auto w-full">
               <div className="mb-12">
                  <h2 className="text-4xl font-black text-slate-900 tracking-tighter uppercase leading-none">Terminal Access</h2>

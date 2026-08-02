@@ -17,7 +17,8 @@ import {
   GraduationCap,
   Megaphone,
   History,
-  Banknote
+  Banknote,
+  X
 } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
@@ -65,25 +66,30 @@ const menuItems = {
 
 interface SidebarProps {
   role: keyof typeof menuItems;
+  onClose?: () => void;
 }
 
-export default function Sidebar({ role }: SidebarProps) {
+export default function Sidebar({ role, onClose }: SidebarProps) {
   const links = menuItems[role] || [];
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col h-full w-80 bg-white text-slate-900 border-r border-slate-100 no-print shrink-0 overflow-hidden shadow-sm">
-      <div className="p-8">
+    <div className="flex flex-col h-full bg-white text-slate-900 border-r border-slate-100 no-print shrink-0 overflow-hidden shadow-sm">
+      <div className="p-8 flex items-center justify-between">
         <Link href="/" className="text-3xl font-black flex items-center gap-4 text-slate-900 hover:opacity-90 transition-all">
           <div className="bg-indigo-600 p-2.5 rounded-2xl shadow-xl shadow-indigo-100">
             <School className="w-8 h-8 text-white" />
           </div>
           <span className="tracking-tighter uppercase">EduPulse</span>
         </Link>
-        <div className="mt-8 px-2">
-            <p className="text-xs text-slate-600 uppercase tracking-[0.3em] font-black leading-none">Management Core</p>
+        <button onClick={onClose} className="lg:hidden p-2 hover:bg-slate-100 rounded-xl text-slate-400">
+           <X className="w-6 h-6" />
+        </button>
+      </div>
+      
+      <div className="px-10 mb-4 lg:block hidden">
+            <p className="text-xs text-slate-400 uppercase tracking-[0.3em] font-black leading-none">Management Core</p>
             <div className="h-[2px] w-8 bg-indigo-600 mt-2 rounded-full"></div>
-        </div>
       </div>
 
       <nav className="flex-1 px-6 py-4 space-y-2 mt-4 overflow-y-auto custom-scrollbar">
@@ -93,6 +99,7 @@ export default function Sidebar({ role }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onClose}
               className={`flex items-center gap-4 px-5 py-5 rounded-2xl transition-all group relative ${
                 isActive 
                 ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100' 
@@ -109,6 +116,7 @@ export default function Sidebar({ role }: SidebarProps) {
       <div className="p-8 border-t border-slate-100 space-y-3 bg-slate-50/50">
         <Link
           href="/settings"
+          onClick={onClose}
           className="flex items-center gap-4 px-5 py-5 rounded-2xl text-slate-700 hover:bg-white hover:text-slate-950 transition-all font-black text-sm uppercase tracking-wider group border border-transparent hover:border-slate-200 shadow-none hover:shadow-sm"
         >
           <Settings className="w-6 h-6 text-slate-500 group-hover:text-indigo-600 transition-colors" />

@@ -59,11 +59,11 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6 selection:bg-indigo-100">
-      <div className="w-full max-w-[1300px] grid grid-cols-1 lg:grid-cols-12 bg-white rounded-[64px] border border-slate-100 shadow-2xl overflow-hidden min-h-[850px]">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 lg:p-6 selection:bg-indigo-100">
+      <div className="w-full max-w-[1300px] grid grid-cols-1 lg:grid-cols-12 bg-white rounded-3xl lg:rounded-[64px] border border-slate-100 shadow-2xl overflow-hidden min-h-[600px] lg:min-h-[850px]">
         
-        {/* Sidebar Left - Branding */}
-        <div className="lg:col-span-4 bg-slate-50 p-16 flex flex-col justify-between relative overflow-hidden group border-r border-slate-100">
+        {/* Sidebar Left - Branding - Hidden on mobile */}
+        <div className="lg:col-span-4 bg-slate-50 p-8 lg:p-16 lg:flex flex-col justify-between relative overflow-hidden group border-r border-slate-100 hidden">
            <div className="relative z-10">
                 <Link href="/" className="flex items-center gap-4 text-slate-900 hover:opacity-80 transition-all">
                     <div className="bg-indigo-600 p-2.5 rounded-[20px] shadow-2xl shadow-indigo-200">
@@ -108,7 +108,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Center - Form */}
-        <div className="lg:col-span-8 p-20 flex flex-col justify-center bg-white relative">
+        <div className="col-span-1 lg:col-span-8 p-8 lg:p-20 flex flex-col justify-center bg-white relative">
            <div className="max-w-[560px] mx-auto w-full">
               <div className="mb-12">
                  <div className="bg-indigo-50 text-indigo-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest w-fit mb-6 border border-indigo-100">Step 1/1: CORE Profile</div>
