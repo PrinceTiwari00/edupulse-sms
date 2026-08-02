@@ -163,7 +163,7 @@ export default function SuperAdminSchoolsPage() {
       )}
 
       {/* Quick Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
            <div className="p-5 bg-indigo-50 rounded-[24px] group-hover:scale-110 transition-transform">
               <School className="w-8 h-8 text-indigo-600" />
@@ -191,6 +191,16 @@ export default function SuperAdminSchoolsPage() {
               <p className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{schools.filter(s => s.plan && s.plan !== 'NONE').length}</p>
            </div>
         </div>
+        <div className="bg-slate-950 p-8 rounded-[40px] text-white shadow-2xl flex items-center gap-8 group hover:bg-slate-900 transition-all relative overflow-hidden">
+           <div className="p-5 bg-white/10 rounded-[24px] group-hover:scale-110 transition-transform z-10">
+              <CreditCard className="w-8 h-8 text-indigo-400" />
+           </div>
+           <div className="z-10">
+              <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1 leading-none">Total Revenue</p>
+              <p className="text-3xl font-black text-white tracking-tighter leading-none mt-2 uppercase">रू {revenue.toLocaleString()}</p>
+           </div>
+           <div className="absolute -right-8 -top-8 w-24 h-24 bg-indigo-600/10 rounded-full blur-2xl"></div>
+        </div>
       </div>
 
       {/* School List Table */}
@@ -211,7 +221,7 @@ export default function SuperAdminSchoolsPage() {
           </div>
         </div>
 
-        <div className="overflow-x-auto">
+        <div className="overflow-visible">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-50">
