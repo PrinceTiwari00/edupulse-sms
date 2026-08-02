@@ -158,13 +158,18 @@ export default function SaaSInvoicePrintPage({ params }: { params: { id: string 
                  <div className="text-center w-36 border-t border-slate-300 pt-1">
                     <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Receiver's Sign</p>
                  </div>
-                 <div className="text-center w-36 border-t border-slate-900 pt-1 relative">
+                 <div className="text-center w-36 pt-1 relative">
                     {invoice.status === 'PAID' && (
                        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-16 h-16 border-2 border-green-600 rounded-full flex items-center justify-center rotate-12 opacity-40">
                           <p className="text-[8px] font-black text-green-600 uppercase">PAID</p>
                        </div>
                     )}
-                    <p className="text-[8px] font-black text-slate-900 uppercase tracking-widest">Accountant</p>
+                    <div className="h-10 flex flex-col items-center justify-end mb-1">
+                        <p className="text-[10px] font-cursive text-slate-800 font-bold mb-1">EduPulse Admin</p>
+                        <div className="w-full border-t border-slate-900"></div>
+                    </div>
+                    <p className="text-[8px] font-black text-slate-900 uppercase tracking-widest leading-none">Authorized By</p>
+                    <p className="text-[6px] text-slate-400 font-bold uppercase mt-0.5">(Signatory Authority)</p>
                  </div>
               </div>
            </div>

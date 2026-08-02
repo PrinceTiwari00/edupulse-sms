@@ -134,19 +134,6 @@ export async function toggleSchoolStatus(id: string, isActive: boolean) {
   }
 }
 
-export async function updateSchoolPlan(id: string, plan: SubscriptionPlan) {
-  try {
-    await prisma.school.update({
-      where: { id },
-      data: { plan },
-    });
-    revalidatePath("/super-admin/schools");
-    return { success: true };
-  } catch (error: any) {
-    return { success: false, error: error.message };
-  }
-}
-
 export async function updateSchool(id: string, data: {
   name?: string;
   email?: string;

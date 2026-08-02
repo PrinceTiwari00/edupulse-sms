@@ -213,6 +213,11 @@ export async function collectSubscriptionPayment(data: {
           where: { id: data.invoiceId },
           data: { status: "PARTIAL" }
         });
+      } else {
+        await tx.subscriptionInvoice.update({
+          where: { id: data.invoiceId },
+          data: { status: "UNPAID" }
+        });
       }
 
       return p;

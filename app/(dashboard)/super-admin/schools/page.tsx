@@ -27,7 +27,6 @@ import Link from 'next/link';
 import { 
   getSchools, 
   toggleSchoolStatus, 
-  updateSchoolPlan, 
   deleteSchool, 
   updateSchool,
   bulkToggleStatus,
@@ -71,11 +70,6 @@ export default function SuperAdminSchoolsPage() {
     const res = await toggleSchoolStatus(id, !currentStatus);
     if (res.success) fetchSchools();
     setOpenMenuId(null);
-  };
-
-  const handlePlanChange = async (id: string, newPlan: SubscriptionPlan) => {
-    const res = await updateSchoolPlan(id, newPlan);
-    if (res.success) fetchSchools();
   };
 
   const handleDelete = async (id: string) => {
@@ -292,23 +286,13 @@ export default function SuperAdminSchoolsPage() {
                     </div>
                   </td>
                   <td className="px-8 py-6">
-                    <div className="relative group/sel">
-                       <select 
-                        value={school.plan}
-                        onChange={(e) => handlePlanChange(school.id, e.target.value as SubscriptionPlan)}
-                        className={`text-[10px] font-black uppercase tracking-widest pl-4 pr-10 py-2 rounded-xl border-none focus:ring-2 focus:ring-indigo-500 cursor-pointer shadow-sm appearance-none ${
-                          school.plan === 'ENTERPRISE' ? 'bg-slate-900 text-white' :
-                          school.plan === 'PRO' ? 'bg-indigo-600 text-white' :
-                          school.plan === 'BASIC' ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'
-                        }`}
-                      >
-                        <option value="FREE">Free</option>
-                        <option value="BASIC">Basic</option>
-                        <option value="PRO">Pro</option>
-                        <option value="ENTERPRISE">Enterprise</option>
-                      </select>
-                      <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3 h-3 pointer-events-none opacity-60" />
-                    </div>
+                    <span className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest shadow-sm border ${
+                      school.plan === 'ENTERPRISE' ? 'bg-slate-900 text-white border-slate-900' :
+                      school.plan === 'PRO' ? 'bg-indigo-600 text-white border-indigo-600' :
+                      school.plan === 'BASIC' ? 'bg-blue-50 text-blue-700 border-blue-100' : 'bg-slate-50 text-slate-500 border-slate-100'
+                    }`}>
+                      {school.plan}
+                    </span>
                   </td>
                   <td className="px-8 py-6">
                     <button 
