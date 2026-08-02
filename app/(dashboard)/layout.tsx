@@ -33,25 +33,25 @@ export default function DashboardLayout({
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header */}
-        <header className="h-24 bg-white border-b border-slate-100 flex items-center justify-between px-12 no-print shadow-sm sticky top-0 z-30">
+        <header className="h-24 bg-white border-b border-slate-200 flex items-center justify-between px-12 no-print shadow-sm sticky top-0 z-30">
           <div className="flex items-center gap-6">
             <div>
                 <h2 className="text-2xl font-black text-slate-900 tracking-tight leading-none">
                 Welcome back, {userName}
                 </h2>
-                <p className="text-[11px] font-black text-indigo-600 uppercase tracking-widest mt-1">Platform Control Center</p>
+                <p className="text-xs font-black text-indigo-700 uppercase tracking-widest mt-1">Platform Control Center</p>
             </div>
           </div>
           
           <div className="flex items-center gap-6">
-            <button className="relative p-3 text-slate-400 hover:text-indigo-600 bg-slate-50 hover:bg-indigo-50 rounded-2xl transition-all group">
-              <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
-              <Bell className="w-6 h-6" />
+            <button className="relative p-3 text-slate-500 hover:text-indigo-600 bg-slate-50 hover:bg-indigo-50 rounded-2xl transition-all group">
+              <span className="absolute top-3 right-3 w-2.5 h-2.5 bg-red-600 rounded-full border-2 border-white animate-pulse"></span>
+              <Bell className="w-7 h-7" />
             </button>
-            <div className="flex items-center gap-4 pl-6 border-l border-slate-100">
+            <div className="flex items-center gap-4 pl-6 border-l border-slate-200">
                 <div className="text-right">
-                    <p className="text-xs font-black text-slate-900 leading-none mb-0.5">{userName}</p>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">{role.replace('_', ' ')}</p>
+                    <p className="text-sm font-black text-slate-900 leading-none mb-0.5">{userName}</p>
+                    <p className="text-xs font-bold text-slate-600 uppercase tracking-tighter">{role.replace('_', ' ')}</p>
                 </div>
                 <div className="w-12 h-12 rounded-2xl bg-indigo-600 flex items-center justify-center text-white font-black text-sm shadow-lg shadow-indigo-100">
                 {userName.substring(0, 2).toUpperCase()}

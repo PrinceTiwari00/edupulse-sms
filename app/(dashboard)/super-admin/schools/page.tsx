@@ -140,7 +140,7 @@ export default function SuperAdminSchoolsPage() {
       <div className="flex justify-between items-end">
         <div className="space-y-2">
           <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase leading-none">Tenant Institutions</h1>
-          <p className="text-slate-500 font-bold text-lg leading-relaxed">Centrally manage institutional lifecycle, resources, and premium licensing.</p>
+          <p className="text-slate-700 font-bold text-lg leading-relaxed">Centrally manage institutional lifecycle, resources, and premium licensing.</p>
         </div>
         <button className="flex items-center gap-3 bg-indigo-600 text-white px-10 py-5 rounded-[24px] font-black text-sm hover:bg-indigo-700 shadow-2xl shadow-indigo-100 transition-all uppercase tracking-widest active:scale-95 no-print">
           <Plus className="w-5 h-5" />
@@ -155,183 +155,173 @@ export default function SuperAdminSchoolsPage() {
               <span className="text-white font-black text-sm uppercase tracking-[0.2em]">{selectedIds.length} Institutions Selected</span>
            </div>
            <div className="flex gap-4">
-              <button onClick={handleBulkSuspend} className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-[11px] font-black uppercase transition-all border border-white/10 tracking-widest">Suspend Selected</button>
-              <button onClick={handleBulkDelete} className="px-8 py-3 bg-red-500/20 hover:bg-red-500/40 text-red-400 rounded-2xl text-[11px] font-black uppercase transition-all border border-red-500/20 tracking-widest">Delete Permanent</button>
+              <button onClick={handleBulkSuspend} className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-2xl text-xs font-black uppercase transition-all border border-white/10 tracking-widest">Suspend Selected</button>
+              <button onClick={handleBulkDelete} className="px-8 py-3 bg-red-500/20 hover:bg-red-500/40 text-red-400 rounded-2xl text-xs font-black uppercase transition-all border border-red-500/20 tracking-widest">Delete Permanent</button>
               <button onClick={() => setSelectedIds([])} className="p-3 text-slate-500 hover:text-white transition-colors bg-white/5 rounded-xl"><X className="w-5 h-5" /></button>
            </div>
         </div>
       )}
 
       {/* Quick Overview Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
            <div className="p-5 bg-indigo-50 rounded-[24px] group-hover:scale-110 transition-transform">
               <School className="w-8 h-8 text-indigo-600" />
            </div>
            <div>
-              <p className="text-sm font-black text-slate-400 uppercase tracking-widest mb-1">Total Schools</p>
+              <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1">Total Schools</p>
               <p className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{schools.length}</p>
            </div>
         </div>
-        <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
+        <div className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
            <div className="p-5 bg-green-50 rounded-[24px] group-hover:scale-110 transition-transform">
               <ShieldCheck className="w-8 h-8 text-green-600" />
            </div>
            <div>
-              <p className="text-sm font-black text-slate-400 uppercase tracking-widest mb-1">Active Tenants</p>
+              <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1">Active Tenants</p>
               <p className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{schools.filter(s => s.isActive).length}</p>
            </div>
         </div>
-        <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
+        <div className="bg-white p-8 rounded-[40px] border border-slate-200 shadow-sm flex items-center gap-8 group hover:shadow-xl transition-all">
            <div className="p-5 bg-amber-50 rounded-[24px] group-hover:scale-110 transition-transform">
               <Zap className="w-8 h-8 text-amber-600" />
            </div>
            <div>
-              <p className="text-sm font-black text-slate-400 uppercase tracking-widest mb-1">Premium Plans</p>
+              <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1">Premium Plans</p>
               <p className="text-4xl font-black text-slate-900 tracking-tighter leading-none">{schools.filter(s => s.plan && s.plan !== 'NONE').length}</p>
            </div>
-        </div>
-        <div className="bg-slate-950 p-8 rounded-[40px] text-white shadow-2xl flex items-center gap-8 group hover:bg-slate-900 transition-all relative overflow-hidden">
-           <div className="p-5 bg-white/10 rounded-[24px] group-hover:scale-110 transition-transform z-10">
-              <CreditCard className="w-8 h-8 text-indigo-400" />
-           </div>
-           <div className="z-10">
-              <p className="text-sm font-black text-slate-500 uppercase tracking-widest mb-1 leading-none">Total Revenue</p>
-              <p className="text-3xl font-black text-white tracking-tighter leading-none mt-2 uppercase">रू {revenue.toLocaleString()}</p>
-           </div>
-           <div className="absolute -right-8 -top-8 w-24 h-24 bg-indigo-600/10 rounded-full blur-2xl"></div>
         </div>
       </div>
 
       {/* School List Table */}
-      <div className="bg-white rounded-[48px] border border-slate-100 shadow-xl min-h-[400px] pb-96">
-        <div className="p-10 border-b border-slate-50 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
+      <div className="bg-white rounded-[48px] border border-slate-200 shadow-xl min-h-[400px] pb-96">
+        <div className="p-10 border-b border-slate-100 flex flex-wrap gap-8 items-center justify-between bg-slate-50/20">
           <div className="relative flex-1 min-w-[400px]">
-            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-6 h-6 text-slate-400" />
             <input 
               type="text" 
               placeholder="Search by school name or subdomain..." 
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-16 pr-6 py-5 border-none rounded-[28px] text-lg font-bold focus:ring-4 focus:ring-indigo-500/10 bg-white shadow-sm transition-all outline-none"
+              className="w-full pl-16 pr-6 py-6 border-none rounded-[28px] text-xl font-black focus:ring-4 focus:ring-indigo-500/10 bg-white shadow-sm transition-all outline-none text-slate-900 placeholder:text-slate-300"
             />
           </div>
           <div className="flex gap-4">
-            <button className="p-5 bg-white border-2 border-slate-100 rounded-3xl hover:bg-slate-50 transition-colors shadow-sm"><Filter className="w-6 h-6 text-slate-500" /></button>
+            <button className="p-5 bg-white border-2 border-slate-100 rounded-3xl hover:bg-slate-50 transition-colors shadow-sm"><Filter className="w-7 h-7 text-slate-600" /></button>
           </div>
         </div>
 
         <div className="overflow-visible">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] border-b border-slate-50">
-                <th className="px-10 py-6 w-16">
+              <tr className="text-xs font-black text-slate-600 uppercase tracking-[0.2em] border-b border-slate-100">
+                <th className="px-10 py-8 w-16 text-center">
                    <input 
                     type="checkbox" 
-                    className="w-5 h-5 rounded-lg border-slate-200 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                    className="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer"
                     checked={selectedIds.length === filteredSchools.length && filteredSchools.length > 0}
                     onChange={toggleSelectAll}
                    />
                 </th>
-                <th className="px-4 py-6">Institution Profile</th>
-                <th className="px-8 py-6">Subdomain</th>
-                <th className="px-8 py-6 text-center">Resources</th>
-                <th className="px-8 py-6">Subscription</th>
-                <th className="px-8 py-6 text-center">Status</th>
-                <th className="px-10 py-6 text-right">Actions</th>
+                <th className="px-6 py-8">Institution Profile</th>
+                <th className="px-8 py-8">Subdomain</th>
+                <th className="px-8 py-8 text-center">Resources</th>
+                <th className="px-8 py-8 text-center">Subscription</th>
+                <th className="px-8 py-8 text-center">Status</th>
+                <th className="px-12 py-8 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="px-10 py-32 text-center text-slate-300 font-black uppercase tracking-widest animate-pulse text-xl">Syncing high-fidelity institution data...</td>
+                  <td colSpan={7} className="px-10 py-40 text-center text-slate-300 font-black uppercase tracking-widest animate-pulse text-2xl italic">Syncing high-fidelity institution data...</td>
                 </tr>
               ) : filteredSchools.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-10 py-32 text-center text-slate-400 font-bold text-xl uppercase tracking-widest italic">No institutions match your query.</td>
+                  <td colSpan={7} className="px-10 py-40 text-center text-slate-400 font-black text-2xl uppercase tracking-widest italic">No institutions match your query.</td>
                 </tr>
               ) : filteredSchools.map((school) => (
-                <tr key={school.id} className={`group hover:bg-slate-50/50 transition-all duration-300 ${selectedIds.includes(school.id) ? 'bg-indigo-50/30' : ''}`}>
-                  <td className="px-10 py-10">
+                <tr key={school.id} className={`group hover:bg-slate-50 transition-all duration-300 ${selectedIds.includes(school.id) ? 'bg-indigo-50/50' : ''}`}>
+                  <td className="px-10 py-12 text-center">
                     <input 
                       type="checkbox" 
-                      className="w-5 h-5 rounded-lg border-slate-200 text-indigo-600 focus:ring-indigo-500 cursor-pointer" 
+                      className="w-6 h-6 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500 cursor-pointer" 
                       checked={selectedIds.includes(school.id)}
                       onChange={() => toggleSelect(school.id)}
                     />
                   </td>
-                  <td className="px-4 py-10">
-                    <div className="flex items-center gap-8">
-                      <div className="w-20 h-20 rounded-[28px] bg-white flex items-center justify-center font-black text-3xl text-indigo-600 shadow-xl border border-slate-100 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                  <td className="px-6 py-12">
+                    <div className="flex items-center gap-10">
+                      <div className="w-24 h-24 rounded-[32px] bg-white flex items-center justify-center font-black text-4xl text-indigo-600 shadow-2xl border-2 border-indigo-50 group-hover:scale-110 group-hover:rotate-2 transition-all duration-500">
                         {school.name[0]}
                       </div>
-                      <div>
-                        <p className="font-black text-slate-900 text-2xl tracking-tighter leading-none mb-3">{school.name}</p>
-                        <div className="flex flex-wrap items-center gap-3">
+                      <div className="space-y-2">
+                        <p className="font-black text-slate-900 text-3xl tracking-tighter leading-none mb-1">{school.name}</p>
+                        <div className="flex flex-wrap items-center gap-4">
                             {Number(school.walletBalance) > 0 && (
-                            <p className="text-[10px] text-green-700 font-black uppercase bg-green-100 px-3 py-1.5 rounded-xl border border-green-200 shadow-sm">
+                            <p className="text-xs text-green-700 font-black uppercase bg-green-100 px-4 py-2 rounded-xl border border-green-200 shadow-sm">
                                 Credit: रू {Number(school.walletBalance).toLocaleString()}
                             </p>
                             )}
-                            <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest bg-slate-100 px-3 py-1.5 rounded-xl">{school.email || 'NO_RECORD'}</p>
+                            <p className="text-xs text-slate-500 font-black uppercase tracking-widest bg-slate-100 px-4 py-2 rounded-xl border border-slate-200">{school.email || 'NO_EMAIL'}</p>
                         </div>
                       </div>
                     </div>
                   </td>
-                  <td className="px-8 py-10">
-                    <div className="flex items-center gap-3 text-[11px] font-mono font-black text-indigo-600 bg-indigo-50 px-5 py-3 rounded-2xl w-fit border border-indigo-100 shadow-sm uppercase tracking-tighter">
-                      <Globe className="w-4 h-4" />
+                  <td className="px-8 py-12">
+                    <div className="flex items-center gap-3 text-sm font-mono font-black text-indigo-700 bg-indigo-50 px-6 py-4 rounded-[20px] w-fit border-2 border-indigo-100 shadow-sm uppercase tracking-tighter">
+                      <Globe className="w-5 h-5" />
                       {school.subdomain}
                     </div>
                   </td>
-                  <td className="px-8 py-10 text-center">
-                    <div className="flex flex-col items-center gap-3">
-                       <div className="flex items-center gap-4">
-                          <div className="flex items-center gap-2 text-xs font-black text-slate-700 uppercase bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100 shadow-sm">
-                             <Users className="w-5 h-5 text-indigo-500" /> {school._count.students}
+                  <td className="px-8 py-12 text-center">
+                    <div className="flex flex-col items-center gap-4">
+                       <div className="flex items-center gap-5">
+                          <div className="flex items-center gap-3 text-sm font-black text-slate-900 uppercase bg-slate-50 px-5 py-2.5 rounded-2xl border-2 border-slate-100 shadow-sm">
+                             <Users className="w-6 h-6 text-indigo-600" /> {school._count.students}
                           </div>
-                          <div className="flex items-center gap-2 text-xs font-black text-slate-700 uppercase bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100 shadow-sm">
-                             <ShieldCheck className="w-5 h-5 text-green-500" /> {school._count.staff}
+                          <div className="flex items-center gap-3 text-sm font-black text-slate-900 uppercase bg-slate-50 px-5 py-2.5 rounded-2xl border-2 border-slate-100 shadow-sm">
+                             <ShieldCheck className="w-6 h-6 text-green-600" /> {school._count.staff}
                           </div>
                        </div>
-                       <div className="w-full max-w-[140px] h-2.5 bg-slate-100 rounded-full overflow-hidden mt-1 shadow-inner border border-slate-200">
-                          <div className="bg-indigo-600 h-full w-[45%] rounded-full shadow-[0_0_15px_rgba(79,70,229,0.4)]"></div>
+                       <div className="w-full max-w-[160px] h-3.5 bg-slate-100 rounded-full overflow-hidden mt-1 shadow-inner border border-slate-200">
+                          <div className="bg-indigo-600 h-full w-[45%] rounded-full shadow-[0_0_15px_rgba(79,70,229,0.5)]"></div>
                        </div>
                     </div>
                   </td>
-                  <td className="px-8 py-10">
-                    <span className={`px-6 py-3 rounded-[20px] text-xs font-black uppercase tracking-[0.2em] shadow-xl border-2 transition-all duration-300 ${
-                      school.plan === 'ENTERPRISE' ? 'bg-slate-950 text-white border-slate-800 shadow-slate-300' :
-                      school.plan === 'PRO' ? 'bg-indigo-600 text-white border-indigo-500 shadow-indigo-100' :
-                      school.plan === 'BASIC' ? 'bg-blue-50 text-blue-800 border-blue-200 shadow-blue-50' : 'bg-white text-slate-400 border-slate-100 shadow-none'
+                  <td className="px-8 py-12 text-center">
+                    <span className={`px-8 py-4 rounded-[24px] text-sm font-black uppercase tracking-[0.2em] shadow-2xl border-2 transition-all duration-300 inline-block ${
+                      school.plan === 'ENTERPRISE' ? 'bg-slate-950 text-white border-slate-800 shadow-slate-400' :
+                      school.plan === 'PRO' ? 'bg-indigo-600 text-white border-indigo-500 shadow-indigo-200' :
+                      school.plan === 'BASIC' ? 'bg-blue-50 text-blue-900 border-blue-200 shadow-blue-100' : 'bg-white text-slate-400 border-slate-200 shadow-none'
                     }`}>
                       {school.plan || 'NONE'}
                     </span>
                   </td>
-                  <td className="px-8 py-10 text-center">
+                  <td className="px-8 py-12 text-center">
                     <button 
                       onClick={() => handleToggleStatus(school.id, school.isActive)}
-                      className={`inline-flex items-center gap-3 px-6 py-3 rounded-[20px] text-[11px] font-black uppercase tracking-widest transition-all shadow-xl border-2 hover:-translate-y-1 active:translate-y-0 ${
-                        school.isActive ? 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100 hover:shadow-green-200' : 'bg-red-50 text-red-600 border-red-200 hover:bg-red-100 hover:shadow-red-200'
+                      className={`inline-flex items-center gap-4 px-8 py-4 rounded-[24px] text-xs font-black uppercase tracking-widest transition-all shadow-xl border-2 hover:-translate-y-1 active:translate-y-0 ${
+                        school.isActive ? 'bg-green-50 text-green-800 border-green-200 hover:bg-green-100 hover:shadow-green-200' : 'bg-red-50 text-red-800 border-red-200 hover:bg-red-100 hover:shadow-red-200'
                       }`}
                     >
                       {school.isActive ? (
                         <>
-                          <CheckCircle className="w-5 h-5" /> Active
+                          <CheckCircle className="w-6 h-6" /> Active
                         </>
                       ) : (
                         <>
-                          <XCircle className="w-5 h-5" /> Suspended
+                          <XCircle className="w-6 h-6" /> Suspended
                         </>
                       )}
                     </button>
                   </td>
-                  <td className="px-10 py-10 text-right relative">
+                  <td className="px-12 py-12 text-right relative">
                     <button 
                       onClick={() => setOpenMenuId(openMenuId === school.id ? null : school.id)}
-                      className="p-4 hover:bg-slate-200 rounded-3xl transition-all inline-flex items-center justify-center border-2 border-transparent hover:border-slate-100 shadow-sm"
+                      className="p-5 hover:bg-slate-200 rounded-[28px] transition-all inline-flex items-center justify-center border-2 border-slate-100 hover:border-slate-300 shadow-md bg-white text-slate-900"
                     >
-                      <MoreVertical className="w-6 h-6 text-slate-400" />
+                      <MoreVertical className="w-8 h-8" />
                     </button>
                     
                     {openMenuId === school.id && (

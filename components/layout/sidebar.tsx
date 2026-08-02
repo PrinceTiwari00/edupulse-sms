@@ -81,7 +81,7 @@ export default function Sidebar({ role }: SidebarProps) {
           <span className="tracking-tighter uppercase">EduPulse</span>
         </Link>
         <div className="mt-8 px-2">
-            <p className="text-[11px] text-slate-400 uppercase tracking-[0.3em] font-black leading-none">Management Core</p>
+            <p className="text-xs text-slate-600 uppercase tracking-[0.3em] font-black leading-none">Management Core</p>
             <div className="h-[2px] w-8 bg-indigo-600 mt-2 rounded-full"></div>
         </div>
       </div>
@@ -93,32 +93,32 @@ export default function Sidebar({ role }: SidebarProps) {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-4 px-5 py-4 rounded-2xl transition-all group relative ${
+              className={`flex items-center gap-4 px-5 py-5 rounded-2xl transition-all group relative ${
                 isActive 
-                ? 'bg-indigo-50 text-indigo-600 shadow-sm border border-indigo-100' 
-                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'
+                ? 'bg-indigo-50 text-indigo-700 shadow-sm border border-indigo-100' 
+                : 'text-slate-700 hover:bg-slate-50 hover:text-slate-950'
               }`}
             >
-              <item.icon className={`w-6 h-6 shrink-0 transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-300 group-hover:text-indigo-400'}`} />
+              <item.icon className={`w-6 h-6 shrink-0 transition-colors ${isActive ? 'text-indigo-600' : 'text-slate-500 group-hover:text-indigo-600'}`} />
               <span className="font-black text-sm uppercase tracking-wider">{item.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-8 border-t border-slate-50 space-y-3 bg-slate-50/30">
+      <div className="p-8 border-t border-slate-100 space-y-3 bg-slate-50/50">
         <Link
           href="/settings"
-          className="flex items-center gap-4 px-5 py-4 rounded-2xl text-slate-500 hover:bg-white hover:text-slate-900 transition-all font-black text-sm uppercase tracking-wider group border border-transparent hover:border-slate-100 shadow-none hover:shadow-sm"
+          className="flex items-center gap-4 px-5 py-5 rounded-2xl text-slate-700 hover:bg-white hover:text-slate-950 transition-all font-black text-sm uppercase tracking-wider group border border-transparent hover:border-slate-200 shadow-none hover:shadow-sm"
         >
-          <Settings className="w-6 h-6 text-slate-300 group-hover:text-indigo-400 transition-colors" />
+          <Settings className="w-6 h-6 text-slate-500 group-hover:text-indigo-600 transition-colors" />
           <span>Settings</span>
         </Link>
         <button
-          className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-red-500 hover:bg-red-50 transition-all font-black text-sm uppercase tracking-wider group"
+          className="w-full flex items-center gap-4 px-5 py-5 rounded-2xl text-red-600 hover:bg-red-50 transition-all font-black text-sm uppercase tracking-wider group"
           onClick={() => signOut({ callbackUrl: '/login' })}
         >
-          <LogOut className="w-6 h-6 opacity-40 group-hover:opacity-100 transition-opacity" />
+          <LogOut className="w-6 h-6 text-red-500 transition-opacity" />
           <span>Logout</span>
         </button>
       </div>
